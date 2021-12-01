@@ -8,18 +8,6 @@ let
   #   rev = "d6f275c1802141dc91f687b5a7fa2289948733b2";
   #   sha256 = "11wz3iikimwxljhjc8m3cyfvnn2d8g3vrzwns4wih2l25bnsbwvy";
   # };
-  doom-emacs = pkgs.callPackage (builtins.fetchTarball {
-    url = https://github.com/vlaci/nix-doom-emacs/archive/master.tar.gz;
-  }) {
-    doomPrivateDir = "${dotfiles}/.doom.d";  # Directory containing your config.el init.el
-                                 # and packages.el files
-    emacsPackage= pkgs.emacsPgtkGcc;
-  emacsPackagesOverlay = self: super: {
-     erlang = super.erlang.overrideAttrs (esuper: {
-       buildInputs = esuper.buildInputs ++ [ pkgs.perl pkgs.ncurses ];
-     });
-  };
-  };
 in
 {
   nixpkgs.overlays = [
@@ -65,7 +53,7 @@ in
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "21.05";
+  home.stateVersion = "20.09";
 
   imports = [
     ./configs/main.nix
