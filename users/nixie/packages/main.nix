@@ -1,6 +1,35 @@
 { pkgs, ... }:
 
-{
+with pkgs;
+let
+  my-python-packages = python-packages: with python-packages; [
+    gst-python
+    # other python packages you want
+  ]; 
+  python-with-my-packages = python3.withPackages my-python-packages;
+  dotfiles = ~/git/dotfiles;
+in {
+  programs.mako = {
+    extraConfig = (builtins.readFile "${dotfiles}/mako/config");
+    enable = true;
+  };
+
+  systemd.user.services = {
+    mako = {
+      Unit = {
+        Description = "A lightweight Wayland notification daemon";
+        Documentation = "man:mako(1)";
+        PartOf = "graphical-session.target";
+      };
+      Service = {
+        Type = "simple";
+        Restart = "always";
+        ExecStart = "${pkgs.mako}/bin/mako";
+      };
+      Install = { WantedBy = [ "sway-session.target" ]; };
+    };
+  };
+
   home.packages = with pkgs; [
     # MISC
     appimage-run
@@ -29,6 +58,7 @@
     neofetch
     ripgrep
     tldr
+    tmux
     tree
     unrar
     unzip
@@ -36,7 +66,7 @@
     zip
 
     # DEVELOPMENT
-    adoptopenjdk-openj9-bin-8
+    jdk
     binutils
     docker-compose
     gradle
@@ -44,13 +74,15 @@
     gh
     gnumake
     httpie
-    idea.idea-ultimate
+    idea.idea-community
     nixfmt
     postman
+    python-with-my-packages
     sbt
 
     # AUDIO
     pavucontrol
+    playerctl
 
     # DEFAULT
     chromium
@@ -66,5 +98,9 @@
 
     # GAMES
     multimc
+
+    # WAYLAND
+    wdisplays
+    waybar
   ];
 }  

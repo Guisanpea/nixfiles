@@ -19,9 +19,17 @@
     allowUnfree = true;
   };
 
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+   };
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.useOSProber = true;
 
   # Enable NTFS
   boot.supportedFilesystems = [ "ntfs" ];
@@ -29,12 +37,11 @@
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
 
-
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
-#  virtualisation.docker.enable = true;
+  virtualisation.docker.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nixie = {

@@ -1,9 +1,18 @@
 {pkgs, ...}: {
   services.xserver = {
     enable = true;
-    displayManager.lightdm = {
+  # Configure keymap in X11
+    layout = "us";
+    xkbVariant = "altgr-intl";
+    xkbOptions = "eurosign:e, caps:swapescape";
+    deviceSection = ''
+        Identifier      "AMD"
+        Driver          "amdgpu"
+        Option          "TearFree" "true"
+    '';
+    displayManager.gdm = {
       enable = true;
-      greeters.pantheon.enable = true;
+      wayland = true;
     };
     desktopManager = {
       gnome = {
@@ -29,8 +38,4 @@
     };
   };
   
-  # Configure keymap in X11
-  services.xserver.layout = "us";
-  services.xserver.xkbVariant = "altgr-intl";
-  services.xserver.xkbOptions = "eurosign:e, caps:swapescape";
 }

@@ -5,14 +5,28 @@
       # Terminal
       git neovim wget zsh
       # Desktop
-      firefox
+      firefox-wayland
     ];
     variables.EDITOR = "nvim";
   };
 
   programs.adb.enable = true;
 
-  fonts.fonts = with pkgs; [ nerdfonts ];
+  programs.waybar.enable = true;
+  programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true; # so that gtk works properly
+    extraPackages = with pkgs; [
+      swaylock
+      swayidle
+      wl-clipboard
+      alacritty # Alacritty is the default terminal in the config
+      wofi # Dmenu is the default in the config but i recommend wofi since its wayland native
+    ];
+  };
+
+
+  fonts.fonts = with pkgs; [ font-awesome nerdfonts ];
 
   nixpkgs = {
     overlays = [

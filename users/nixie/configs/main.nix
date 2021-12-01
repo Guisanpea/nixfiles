@@ -2,12 +2,10 @@
 
 {
   imports = [
-    ./polybar.nix
     ./rofi.nix
-    ./alacritty.nix
-    ./compton.nix
     ./zsh.nix
     ./nvim.nix
+    ./mime-apps.nix
   ];
 
   programs = {

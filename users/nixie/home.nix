@@ -1,17 +1,36 @@
 { config, pkgs, ... }:
 
 let
-  dotfiles = pkgs.fetchFromGitHub {
-    owner = "Guisanpea";
-    repo = "dotfiles";
-    rev = "391cd5c0b9548da07a86b1d164dfe852fa9ae404";
-    sha256 = "0yr5j452q6cidlfcz2k3wx6dcvyp3ay6xissqzx6k9nincp8pnbk";
+  dotfiles = ~/git/dotfiles;
+  # pkgs.fetchFromGitHub {
+  #   owner = "Guisanpea";
+  #   repo = "dotfiles";
+  #   rev = "d6f275c1802141dc91f687b5a7fa2289948733b2";
+  #   sha256 = "11wz3iikimwxljhjc8m3cyfvnn2d8g3vrzwns4wih2l25bnsbwvy";
+  # };
+  doom-emacs = pkgs.callPackage (builtins.fetchTarball {
+    url = https://github.com/vlaci/nix-doom-emacs/archive/master.tar.gz;
+  }) {
+    doomPrivateDir = "${dotfiles}/.doom.d";  # Directory containing your config.el init.el
+                                 # and packages.el files
+    emacsPackage= pkgs.emacsPgtkGcc;
+  emacsPackagesOverlay = self: super: {
+     erlang = super.erlang.overrideAttrs (esuper: {
+       buildInputs = esuper.buildInputs ++ [ pkgs.perl pkgs.ncurses ];
+     });
+  };
   };
 in
 {
-  nixpkgs.overlays = [ (import ./overlays/main.nix) ];
+  nixpkgs.overlays = [
+    (import ./overlays/main.nix)
+    (import (builtins.fetchTarball {
+      url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
+    }))
+  ];
 
   programs.home-manager.enable = true;
+
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -20,13 +39,23 @@ in
 
   home.packages = with pkgs; [
     cowsay fortune feh openssl ripgrep
-    jetbrains.idea-ultimate emacs
+    jetbrains.idea-ultimate 
     arandr konsole gnome3.dconf-editor
     lutris-free
     slack tdesktop
+    doom-emacs
   ];
 
+  home.file.".emacs.d/init.el".text = ''
+      (load "default.el")
+  '';
+
   xdg.configFile."i3".source = "${dotfiles}/i3";
+  xdg.configFile."tmux".source = "${dotfiles}/tmux";
+  xdg.configFile."alacritty".source = "${dotfiles}/alacritty";
+  xdg.configFile."sway/config".source = "${dotfiles}/sway/config.config";
+  xdg.configFile."waybar".source = "${dotfiles}/waybar";
+  home.file.".Xresources".source = "${dotfiles}/.Xresources";
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
@@ -41,6 +70,5 @@ in
   imports = [
     ./configs/main.nix
     ./packages/main.nix
-    ./settings/mime-apps.nix
   ];
 }

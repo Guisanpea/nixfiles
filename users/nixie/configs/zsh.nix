@@ -13,6 +13,11 @@ in
   programs.zsh = {
     enable = true;
     oh-my-zsh.enable = true;
+    shellAliases = {
+      ls = "exa";
+      hms = "~/.dotfiles/apply-user.sh";
+      snix = "~/.dotfiles/apply-system.sh";
+    };
     plugins = [
       {
         name = "powerlevel10k";
