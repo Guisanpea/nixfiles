@@ -12,9 +12,6 @@ in
 {
   nixpkgs.overlays = [
     (import ./overlays/main.nix)
-    (import (builtins.fetchTarball {
-      url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
-    }))
   ];
 
   programs.home-manager.enable = true;
@@ -31,8 +28,18 @@ in
     arandr konsole gnome3.dconf-editor
     lutris-free
     slack tdesktop
-    doom-emacs
   ];
+
+  # programs.doom-emacs = {
+  #   enable = true;
+  #   doomPrivateDir = "${dotfiles}/.doom.d";
+  #   emacsPackage = pkgs.emacsPgtkGcc;
+  #   emacsPackagesOverlay = self: super: {
+  #      erlang = super.erlang.overrideAttrs (esuper: {
+  #        buildInputs = esuper.buildInputs ++ [ pkgs.perl pkgs.ncurses ];
+  #      });
+  #   };
+  # };
 
   home.file.".emacs.d/init.el".text = ''
       (load "default.el")

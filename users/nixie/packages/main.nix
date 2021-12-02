@@ -68,6 +68,7 @@ in {
     # DEVELOPMENT
     jdk
     binutils
+    chromedriver
     docker-compose
     gradle
     gcc

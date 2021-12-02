@@ -1,3 +1,4 @@
 pushd ~/.dotfiles
-home-manager switch -f ./users/nixie/home.nix
+nix build .#homeManagerConfigurations.nixie.activationPackage --impure &&
+./result/activate
 popd
