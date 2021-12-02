@@ -67,6 +67,8 @@ in {
 
     # DEVELOPMENT
     jdk
+    apacheKafka
+    kafkacat
     binutils
     chromedriver
     docker-compose
