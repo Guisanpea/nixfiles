@@ -30,20 +30,18 @@ in
     slack tdesktop
   ];
 
-  # programs.doom-emacs = {
-  #   enable = true;
-  #   doomPrivateDir = "${dotfiles}/.doom.d";
-  #   emacsPackage = pkgs.emacsPgtkGcc;
-  #   emacsPackagesOverlay = self: super: {
-  #      erlang = super.erlang.overrideAttrs (esuper: {
-  #        buildInputs = esuper.buildInputs ++ [ pkgs.perl pkgs.ncurses ];
-  #      });
-  #   };
-  # };
-
-  home.file.".emacs.d/init.el".text = ''
-      (load "default.el")
-  '';
+  programs.doom-emacs = {
+    enable = true;
+    doomPrivateDir = "${dotfiles}/.doom.d";
+    emacsPackage = pkgs.emacsPgtkGcc;
+    emacsPackagesOverlay = self: super: {
+      gitignore-mode = pkgs.emacsPackages.git-modes;
+      gitconfig-mode = pkgs.emacsPackages.git-modes;
+      erlang = super.erlang.overrideAttrs (esuper: {
+        buildInputs = esuper.buildInputs ++ [ pkgs.perl pkgs.ncurses ];
+      });
+    };
+  };
 
   xdg.configFile."i3".source = "${dotfiles}/i3";
   xdg.configFile."tmux".source = "${dotfiles}/tmux";

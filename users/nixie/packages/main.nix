@@ -76,6 +76,7 @@ in {
     gcc
     gh
     gnumake
+    helm
     httpie
     idea.idea-community
     nixfmt
