@@ -1,4 +1,4 @@
 pushd ~/.dotfiles
-nix build .#homeManagerConfigurations.nixie.activationPackage --impure &&
+nix build --print-build-logs .#homeManagerConfigurations.nixie.activationPackage --impure --print-build-logs &&
 ./result/activate
 popd

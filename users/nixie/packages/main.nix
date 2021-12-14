@@ -83,6 +83,8 @@ in {
     postman
     python-with-my-packages
     sbt
+    elixir
+    erlang
 
     # AUDIO
     pavucontrol

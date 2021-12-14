@@ -1,13 +1,13 @@
 { config, pkgs, ... }:
 
 let
-  dotfiles = ~/git/dotfiles;
-  # pkgs.fetchFromGitHub {
-  #   owner = "Guisanpea";
-  #   repo = "dotfiles";
-  #   rev = "d6f275c1802141dc91f687b5a7fa2289948733b2";
-  #   sha256 = "11wz3iikimwxljhjc8m3cyfvnn2d8g3vrzwns4wih2l25bnsbwvy";
-  # };
+  #dotfiles = ~/git/dotfiles;
+  dotfiles = pkgs.fetchFromGitHub {
+    owner = "Guisanpea";
+    repo = "dotfiles";
+    rev = "a9fd3fa8de644c73ac800e92115aa84e2bba4863";
+    sha256 = "EmyZqdmbHSKlTiBEHNZHqn9+Tqc3asanQu/tece8PK0=";
+  };
 in
 {
   nixpkgs.overlays = [
@@ -32,7 +32,7 @@ in
 
   programs.doom-emacs = {
     enable = true;
-    doomPrivateDir = "${dotfiles}/.doom.d";
+    doomPrivateDir = "${dotfiles}/doom.d";
     emacsPackage = pkgs.emacsPgtkGcc;
     emacsPackagesOverlay = self: super: {
       gitignore-mode = pkgs.emacsPackages.git-modes;

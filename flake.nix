@@ -7,20 +7,19 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Nix doom emacs
-    nix-doom-emacs.url = "github:vlaci/nix-doom-emacs/develop";
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     nix-doom-emacs.inputs.nixpkgs.follows = "nixpkgs";
     nix-doom-emacs.inputs.emacs-overlay.follows = "emacs-overlay";
-    emacs-overlay.url = "github:nix-community/emacs-overlay/master";
   };
 
   outputs = inputs@{ nixpkgs, home-manager, nix-doom-emacs, ... }:
   let 
     system = "x86_64-linux";
-    overlays = [ inputs.emacs-overlay.overlay ];
     pkgs = import nixpkgs {
       inherit system;
+      overlays = [ inputs.emacs-overlay.overlay ];
       config = { allowUnfree = true; };
-      inherit overlays;
     };
 
     lib = nixpkgs.lib;
