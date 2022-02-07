@@ -32,7 +32,7 @@
         configuration = {
           imports = [
             nix-doom-emacs.hmModule
-            ./users/nixie/home.nix
+            ./nixie/home.nix
           ];
         };
       };

@@ -2,22 +2,26 @@
 
 
 let
-  dotfiles = pkgs.fetchFromGitHub {
-    owner = "Guisanpea";
-    repo = "dotfiles";
-    rev = "92d9e1c7a18e6da883dcf4ece610f6cc14399f2e";
-    sha256 = "07jzb5ya8z7qpp17y30pddzd8nhdjq6a3vhn4x6nm3vwazmr7g16";
-  };
+  dotfiles = ~/git/dotfiles;
+  # dotfiles = pkgs.fetchFromGitHub {
+  #   owner = "Guisanpea";
+  #   repo = "dotfiles";
+  #   rev = "92d9e1c7a18e6da883dcf4ece610f6cc14399f2e";
+  #   sha256 = "07jzb5ya8z7qpp17y30pddzd8nhdjq6a3vhn4x6nm3vwazmr7g16";
+  # };
 in
 {
   programs.zsh = {
     enable = true;
     oh-my-zsh.enable = true;
+    enableCompletion = true;
     shellAliases = {
       ls = "exa";
+      unix = "~/.dotfiles/update.sh";
       hms = "~/.dotfiles/apply-user.sh";
       snix = "~/.dotfiles/apply-system.sh";
     };
+    # https://github.com/NixOS/nixpkgs/issues/27587
     plugins = [
       {
         name = "powerlevel10k";
@@ -48,6 +52,11 @@ in
         name = "autostart";
         src = dotfiles;
         file = "zsh/autostart.zsh";
+      }
+      {
+        name = "bash private functions";
+        src = ~/.config/bash;
+        file = "functions.sh";
       }
       {
         name = "zsh-z";

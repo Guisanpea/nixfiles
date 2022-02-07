@@ -2,12 +2,22 @@
 
 with pkgs;
 let
-  my-python-packages = python-packages: with python-packages; [
-    gst-python
-    # other python packages you want
-  ]; 
-  python-with-my-packages = python3.withPackages my-python-packages;
+  python-with-my-packages = python3.withPackages(packages: with packages; [
+    pip
+  ]);
   dotfiles = ~/git/dotfiles;
+  my-php = php74.buildEnv {
+    extensions = { enabled, all }: with all; enabled ++ [xdebug];
+    extraConfig = ''
+      xdebug.mode = debug
+      xdebug.start_with_request = yes
+      xdebug.discover_client_host=1
+      xdebug.client_port = 9000
+    '';};
+    zoom = pkgs.zoom-us.overrideAttrs (old: {
+      postFixup = old.postFixup + ''
+        wrapProgram $out/bin/zoom-us --unset XDG_SESSION_TYPE
+      '';});
 in {
   programs.mako = {
     extraConfig = (builtins.readFile "${dotfiles}/mako/config");
@@ -33,6 +43,8 @@ in {
   home.packages = with pkgs; [
     # MISC
     appimage-run
+    teams
+    swaylock-effects
 
     # TERMINAL
     aria2
@@ -68,6 +80,7 @@ in {
     # DEVELOPMENT
     jdk
     apacheKafka
+    asdf-vm
     kafkacat
     binutils
     chromedriver
@@ -75,16 +88,31 @@ in {
     gradle
     gcc
     gh
+    insomnia
     gnumake
+    cmake
     helm
     httpie
     idea.idea-community
     nixfmt
     postman
     python-with-my-packages
+    awscli
     sbt
+    coursier
+    metals
     elixir
     erlang
+    php74Packages.composer
+    my-php
+    nodejs-16_x
+    vscodium
+    dbeaver
+    mysql57
+    elixir_ls
+    terraform
+    kubectl
+    k9s
 
     # AUDIO
     pavucontrol
@@ -96,11 +124,18 @@ in {
     discord
     element-desktop
     vlc
+    clapper
     spotify
     blueman
     wineWowPackages.stable
     slack
     rmapi
+    zoom
+    firefox-devedition-bin
+    emacsPgtkGcc
+    qbittorrent
+    libreoffice
+    masterpdfeditor
 
     # GAMES
     multimc
@@ -108,5 +143,8 @@ in {
     # WAYLAND
     wdisplays
     waybar
+    grim
+    slurp
+    swappy
   ];
 }  
