@@ -5,16 +5,31 @@ params: {
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.enp34s0.useDHCP = true;
-  networking.interfaces.wlo1.useDHCP = true;
+  networking.interfaces.enp42s0.useDHCP = true;
 
     # Dont wait for network to launch
   systemd.services.systemd-udev-settle.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
-  networking.networkmanager.enable = true;
+
+  # DNS
+  # services.resolved.enable = true;
+  # networking.networkmanager = {
+  #   enable = true;
+  #   dns = "systemd-resolved";
+  # };
+  networking.nameservers = [ "1.1.1.1" ];
+  # systemd.network.networks.enp3s0.dns = [ "1.1.1.1" ];
+  networking.extraHosts =
+    ''
+      127.0.0.1 mysql-database
+      127.0.0.1 rabbitmq
+      127.0.0.1 redis
+      127.0.0.1 kubernetes.docker.internal
+      127.0.0.1 localhost
+    '';
 
   services = {
-    blueman.enable = true;
+    blueman.enable = false;
   };
 
   hardware.bluetooth.enable = true;

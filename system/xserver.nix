@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   services.xserver = {
     enable = true;
-  # Configure keymap in X11
+    # Configure keymap in X11
     layout = "us";
     xkbVariant = "altgr-intl";
     xkbOptions = "eurosign:e, caps:swapescape";
@@ -17,18 +17,6 @@
     desktopManager = {
       gnome = {
         enable = true;
-#	flashback.customSessions = [
-#	  {
-#	    wmCommand = "${pkgs.i3-gaps}/bin/i3";
-#	    wmLabel = "Gnome i3";
-#	    wmName = "gnome3-i3";
-	  #}
-	#];
-      };
-      xfce = {
-        enable = true;
-        noDesktop = true;
-        enableXfwm = false;
       };
     };
 
@@ -37,5 +25,4 @@
       package = pkgs.i3-gaps;
     };
   };
-  
 }

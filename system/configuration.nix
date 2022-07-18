@@ -12,6 +12,7 @@
       ./gpu.nix
       ./network.nix
       ./xserver.nix
+      ./sound.nix
 #      ./xmonad.nix
     ];
     

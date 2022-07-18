@@ -10,8 +10,6 @@
     variables.EDITOR = "nvim";
   };
 
-  programs.adb.enable = true;
-
   programs.waybar.enable = true;
   programs.sway = {
     enable = true;
@@ -21,7 +19,7 @@
       swayidle
       wl-clipboard
       alacritty # Alacritty is the default terminal in the config
-      wofi # Dmenu is the default in the config but i recommend wofi since its wayland native
+      rofi-wayland # Dmenu is the default in the config but i recommend wofi since its wayland native
     ];
   };
 
