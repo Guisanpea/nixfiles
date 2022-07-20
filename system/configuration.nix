@@ -6,14 +6,14 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./packages.nix
+    [
+      ./boot.nix
       ./gpu.nix
+      ./hardware-configuration.nix # Include the results of the hardware scan.
       ./network.nix
-      ./xserver.nix
+      ./packages.nix
       ./sound.nix
-#      ./xmonad.nix
+      ./xserver.nix
     ];
     
   nixpkgs.config = {
@@ -27,33 +27,10 @@
     '';
    };
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.useOSProber = true;
-
-  # Enable NTFS
-  boot.supportedFilesystems = [ "ntfs" ];
-
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
 
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-
   virtualisation.docker.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.nixie = {
-    isNormalUser = true;
-    isSystemUser = false;
-    extraGroups = [ "wheel" "docker" "adbusers" ]; # Enable ‘sudo’ for the user.
-  };
-
-  nix.trustedUsers = [ "root" "nixie" ];
-
-  programs.steam.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

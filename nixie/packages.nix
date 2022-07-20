@@ -103,6 +103,7 @@ in {
     postman
     python-with-my-packages
     sbt
+    symfony-cli
     terraform
     vscodium
 
@@ -117,6 +118,7 @@ in {
     discord
     dropbox
     firefox-devedition-bin
+    firefox-wayland
     libreoffice
     maestral
     maestral-gui
