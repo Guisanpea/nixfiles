@@ -4,7 +4,6 @@
   imports = [
     ./rofi.nix
     ./zsh.nix
-    ./nvim.nix
     ./mime-apps.nix
   ];
 

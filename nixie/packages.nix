@@ -4,14 +4,14 @@ with pkgs;
 let
   python-with-my-packages =
     python3Full.withPackages (packages: with packages; [ pygobject3 pip ]);
-  dotfiles = ~/git/dotfiles;
-  my-php = php74.buildEnv {
+  dotfiles = /home/nixie/git/dotfiles;
+  my-php = p2205.php74.buildEnv {
     extensions = { enabled, all }: with all; enabled ++ [ xdebug ];
     extraConfig = ''
-      xdebug.mode = debug
-      xdebug.start_with_request = yes
-      xdebug.discover_client_host=1
-      xdebug.client_port = 9000
+      # xdebug.mode = debug
+      # xdebug.start_with_request = yes
+      # xdebug.discover_client_host=1
+      # xdebug.client_port = 9000
     '';
   };
   zoom = pkgs.zoom-us.overrideAttrs (old: {
@@ -34,6 +34,7 @@ in {
     aria2
     bat
     broot
+    cachix
     cava
     delta
     dig
@@ -55,6 +56,7 @@ in {
     navi
     ncdu
     neofetch
+    pv
     ripgrep
     tldr
     tmux
@@ -91,6 +93,7 @@ in {
     jdk
     jetbrains.idea-community
     jetbrains.phpstorm
+    jetbrains.webstorm
     k9s
     kafkacat
     kubectl
@@ -99,13 +102,14 @@ in {
     mysql57
     nixfmt
     nodejs-16_x
-    php74Packages.composer
+    p2205.php74Packages.composer
     postman
     python-with-my-packages
     sbt
     symfony-cli
     terraform
     vscodium
+    yarn
 
     # AUDIO
     pavucontrol
@@ -117,11 +121,12 @@ in {
     clapper
     discord
     dropbox
-    firefox-devedition-bin
     firefox-wayland
-    libreoffice
+    gnome.file-roller
     maestral
     maestral-gui
+    matlab
+    matlab-mlint
     qbittorrent
     rmapi
     slack
@@ -129,6 +134,7 @@ in {
     spotify
     vlc
     wineWowPackages.stable
+    zathura
     zoom
 
     # GAMES

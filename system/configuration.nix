@@ -13,6 +13,7 @@
       ./network.nix
       ./packages.nix
       ./sound.nix
+      ./users.nix
       ./xserver.nix
     ];
     

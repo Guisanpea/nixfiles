@@ -1,5 +1,7 @@
-{ pkgs, ... }: {
-
+{ pkgs, ... }: 
+let 
+  filteredNerdFonts = pkgs.nerdfonts.override { fonts = [ "FiraCode" "Iosevka" "JetBrainsMono" ]; };
+in {
   environment = {
     systemPackages = with pkgs; [
       # Terminal
@@ -24,22 +26,5 @@
   };
 
 
-  fonts.fonts = with pkgs; [ font-awesome nerdfonts ];
-
-  nixpkgs = {
-    overlays = [
-      (self: super: {
-        neovim = super.neovim.override {
-          viAlias = true;
-          vimAlias = true;
-          configure = {
-            packages.myVimPackage = with pkgs.vimPlugins; {
-              start = [ vim-nix ];
-              opt = [ ];
-            };      
-          };
-        };
-      })
-    ];
-  };
+  fonts.fonts = with pkgs; [ font-awesome filteredNerdFonts ];
 }

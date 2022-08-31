@@ -1,4 +1,5 @@
 #!/bin/sh
 pushd ~/.dotfiles
-sudo nixos-rebuild switch --flake .#
+rm ~/.config/mimeapps.list
+sudo nixos-rebuild switch --flake .#nixos --impure -L -v
 popd
