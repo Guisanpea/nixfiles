@@ -2,7 +2,7 @@
 
 
 let
-  dotfiles = ../../dotfiles;
+  dotfiles = ../../.config;
 in
 {
   programs.zsh = {

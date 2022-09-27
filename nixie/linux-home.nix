@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  dotfiles = ../dotfiles;
+  dotfiles = ../.config;
 in
 {
   imports = [

@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  dotfiles = /home/nixie/git/dotfiles;
+  dotfiles = ../.config;
   astronvim = pkgs.fetchFromGitHub {
     owner = "AstroNvim";
     repo = "AstroNvim";
