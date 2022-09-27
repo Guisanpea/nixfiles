@@ -12,21 +12,4 @@ self: super: {
     src = builtins.fetchTarball
       "https://discord.com/api/download?platform=linux&format=tar.gz";
   });
-  jetbrains = super.jetbrains // {
-    idea-community = super.jetbrains.idea-community.overrideAttrs (_: {
-      name = "idea-community.2022.1.3";
-      src = builtins.fetchTarball
-        "https://download.jetbrains.com/idea/ideaIU-2022.1.3.tar.gz";
-    });
-    phpstorm = super.jetbrains.phpstorm.overrideAttrs (_: {
-      name = "phpstorm.2022.1";
-      src = builtins.fetchTarball
-        "https://download.jetbrains.com/webide/PhpStorm-2022.1.tar.gz";
-    });
-    webstorm = super.jetbrains.webstorm.overrideAttrs (_: {
-      name = "webstorm.2022.2";
-      src = builtins.fetchTarball
-        "https://download.jetbrains.com/webstorm/WebStorm-2022.2.tar.gz";
-    });
-  };
 }

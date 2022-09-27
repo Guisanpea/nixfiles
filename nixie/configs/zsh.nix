@@ -2,13 +2,7 @@
 
 
 let
-  dotfiles = /home/nixie/git/dotfiles;
-  # dotfiles = pkgs.fetchFromGitHub {
-  #   owner = "Guisanpea";
-  #   repo = "dotfiles";
-  #   rev = "92d9e1c7a18e6da883dcf4ece610f6cc14399f2e";
-  #   sha256 = "07jzb5ya8z7qpp17y30pddzd8nhdjq6a3vhn4x6nm3vwazmr7g16";
-  # };
+  dotfiles = ../../dotfiles;
 in
 {
   programs.zsh = {
