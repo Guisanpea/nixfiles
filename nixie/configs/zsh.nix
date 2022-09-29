@@ -3,6 +3,7 @@
 
 let
   dotfiles = ../../.config;
+  home = builtins.getEnv "HOME";
 in
 {
   programs.zsh = {
@@ -49,7 +50,7 @@ in
       }
       {
         name = "bash private functions";
-        src = /home/nixie/.config/bash;
+        src = "${home}/.config/bash";
         file = "functions.sh";
       }
       {

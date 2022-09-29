@@ -2,9 +2,7 @@
 
 {
   imports = [
-    ./rofi.nix
     ./zsh.nix
-    ./mime-apps.nix
   ];
 
   programs = {

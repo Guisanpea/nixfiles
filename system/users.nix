@@ -10,5 +10,5 @@
 
   users.defaultUserShell = pkgs.zsh;
 
-  nix.trustedUsers = [ "root" "nixie" ];
+  nix.settings.trusted-users = [ "root" "nixie" ];
 }

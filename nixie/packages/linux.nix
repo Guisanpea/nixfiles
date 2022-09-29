@@ -11,8 +11,13 @@ let
 in {
   home.packages = [
     # AUDIO
+    cava
+    dmidecode
     pavucontrol
     playerctl
+
+    # CLI
+    helm
 
     # DESKTOP
     blueman
@@ -20,8 +25,10 @@ in {
     clapper
     discord
     dropbox
+    escrotum
     firefox-wayland
     gnome.file-roller
+    gparted
     maestral
     maestral-gui
     qbittorrent
@@ -46,6 +53,7 @@ in {
 
     # DESKTOP DEVELOPMENT
     emacsPgtkNativeComp
+    insomnia
     jetbrains.idea-community
     jetbrains.phpstorm
     jetbrains.webstorm

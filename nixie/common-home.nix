@@ -16,7 +16,6 @@ in
 
   imports = [
     ./packages/cli.nix
-    ./configs/main.nix
   ];
 
   programs.home-manager.enable = true;

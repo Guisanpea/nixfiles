@@ -5,8 +5,8 @@ let
 in
 {
   imports = [
-    ./packages/cli.nix
     ./packages/linux.nix
+    ./configs/linux.nix
     ./common-home.nix
   ];
   home.username = "nixie";
