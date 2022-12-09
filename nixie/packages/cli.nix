@@ -2,13 +2,14 @@
 
 with pkgs;
 let
-  my-php = p2205.php74.buildEnv {
-    extensions = { enabled, all }: with all; enabled ++ [ xdebug ];
+  my-php = php81.buildEnv {
+    extensions = { enabled, all }: with all; enabled ++ [ dom xdebug rdkafka ];
     extraConfig = ''
       # xdebug.mode = debug
       # xdebug.start_with_request = yes
       # xdebug.discover_client_host=1
       # xdebug.client_port = 9000
+      memory_limit = 1G
     '';
   };
 in {
@@ -30,11 +31,11 @@ in {
     git-crypt       #
     glances         #
     gnupg           #
-    gotop           #
     gping           #
     htop            #
     imagemagick     #
     navi            #
+    neovim
     ncdu            #
     neofetch        #
     pv              #
@@ -69,11 +70,16 @@ in {
     k9s
     kafkacat
     kubectl
+    kubectx
+    kubelogin
     metals
     my-php
     mysql57
     nixfmt
-    p2205.php74Packages.composer
+    nodePackages.npm
+    (p2205.php74Packages.composer.override {
+        php = my-php;
+    })
     sbt
     symfony-cli
     terraform

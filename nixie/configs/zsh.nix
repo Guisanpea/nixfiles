@@ -11,11 +11,14 @@ in
     oh-my-zsh.enable = true;
     enableCompletion = true;
     shellAliases = {
+      k = "kubectl";
       ls = "exa";
       unix = "/home/nixie/.dotfiles/update.sh";
       snix = "/home/nixie/.dotfiles/apply-system.sh";
     };
-    initExtra = "export PATH=$PATH:~/.local/npm/bin";
+    initExtra = ''
+      export PATH=$PATH:~/.local/npm/bin;
+    '';
     # https://github.com/NixOS/nixpkgs/issues/27587
     plugins = [
       {

@@ -65,6 +65,8 @@
   '(mode-line ((t (:family "Noto Sans" :height 0.7))))
   '(mode-line-inactive ((t (:family "Noto Sans" :height 0.7)))))
 
+(menu-bar-mode t)
+
 (require 'dap-elixir)
 
 (dap-register-debug-template
