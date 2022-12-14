@@ -13,8 +13,10 @@ in
     shellAliases = {
       k = "kubectl";
       ls = "exa";
+      mnix = "/Users/ssanchez/.dotfiles/apply-mac.sh";
       unix = "/home/nixie/.dotfiles/update.sh";
       snix = "/home/nixie/.dotfiles/apply-system.sh";
+      csf = "./vendor/bin/php-cs-fixer fix";
     };
     initExtra = ''
       export PATH=$PATH:~/.local/npm/bin;

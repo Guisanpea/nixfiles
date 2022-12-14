@@ -74,9 +74,10 @@ in {
     kubelogin
     metals
     my-php
-    mysql57
+    mysql
     nixfmt
     nodePackages.npm
+    nodejs
     (p2205.php74Packages.composer.override {
         php = my-php;
     })

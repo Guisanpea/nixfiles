@@ -34,6 +34,9 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Dropbox/org")
 
+;; Set roam directory
+;; The file-truename function is only necessary when you use symbolic links inside org-roam-directory: Org-roam does not resolve symbolic links
+(setq org-roam-directory (file-truename "~/Dropbox/org/roam"))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
