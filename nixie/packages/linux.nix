@@ -41,7 +41,7 @@ in {
     zoom
 
     # GAMES
-    polymc
+    prismlauncher
 
     # WAYLAND
     grim
@@ -56,7 +56,6 @@ in {
     insomnia
     jetbrains.idea-community
     jetbrains.phpstorm
-    jetbrains.webstorm
     vscodium
   ];
 }
