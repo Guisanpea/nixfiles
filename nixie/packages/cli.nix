@@ -62,6 +62,7 @@ in {
     elixir
     elixir_ls
     erlang
+    gcc
     gh
     gnumake
     gradle
