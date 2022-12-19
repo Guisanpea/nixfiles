@@ -35,6 +35,7 @@ in {
     htop            #
     imagemagick     #
     libtool
+    libvterm
     navi            #
     neovim
     ncdu            #

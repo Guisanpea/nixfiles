@@ -52,7 +52,7 @@ in {
     wmname
 
     # DESKTOP DEVELOPMENT
-    emacsPgtkNativeComp
+    ((emacsPackagesFor emacsPgtk).emacsWithPackages (epkgs: [epkgs.vterm]))
     insomnia
     jetbrains.idea-community
     jetbrains.phpstorm
