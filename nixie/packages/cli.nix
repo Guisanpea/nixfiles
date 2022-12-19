@@ -34,6 +34,7 @@ in {
     gping           #
     htop            #
     imagemagick     #
+    libtool
     navi            #
     neovim
     ncdu            #
