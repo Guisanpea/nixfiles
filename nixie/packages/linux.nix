@@ -8,6 +8,42 @@ let
       wrapProgram $out/bin/zoom-us --unset XDG_SESSION_TYPE
     '';
   });
+
+  discord-wayland = pkgs.symlinkJoin {
+    name = "discord";
+    paths = [ pkgs.discord ];
+    buildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/discord --add-flags "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,WaylandWindowDecorations --ozone-platform-hint=wayland"
+    '';
+  };
+
+  slack-wayland = pkgs.symlinkJoin {
+    name = "slack";
+    paths = [ pkgs.slack ];
+    buildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/slack --add-flags "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,WaylandWindowDecorations --ozone-platform-hint=wayland"
+    '';
+  };
+
+  spotify-wayland = pkgs.symlinkJoin {
+    name = "spotify";
+    paths = [ pkgs.spotify ];
+    buildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/spotify --add-flags "--enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=wayland"
+    '';
+  };
+
+  vscodium-wayland = pkgs.symlinkJoin {
+    name = "vscodium";
+    paths = [ pkgs.vscodium ];
+    buildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/codium --add-flags "--enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=wayland"
+    '';
+  };
 in {
   home.packages = [
     # AUDIO
@@ -23,7 +59,7 @@ in {
     blueman
     chromium
     clapper
-    discord
+    discord-wayland
     dropbox
     escrotum
     firefox-wayland
@@ -32,9 +68,9 @@ in {
     maestral
     maestral-gui
     qbittorrent
-    slack
+    slack-wayland
     spicetify-cli
-    spotify
+    spotify-wayland
     vlc
     wineWowPackages.stable
     zathura

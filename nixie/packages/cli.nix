@@ -39,6 +39,7 @@ in {
     navi            #
     neovim
     ncdu            #
+    nix-prefetch-github
     neofetch        #
     pv              #
     ripgrep         #
@@ -81,6 +82,7 @@ in {
     nixfmt
     nodePackages.npm
     nodejs
+    prisma-engines
     (p2205.php74Packages.composer.override {
         php = my-php;
     })
