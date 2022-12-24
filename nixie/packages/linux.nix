@@ -92,6 +92,6 @@ in {
     insomnia
     jetbrains.idea-community
     jetbrains.phpstorm
-    vscode
+    vscodium-wayland
   ];
 }
