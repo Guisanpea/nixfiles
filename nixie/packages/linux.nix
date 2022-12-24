@@ -14,7 +14,7 @@ let
     paths = [ pkgs.discord ];
     buildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
-      wrapProgram $out/bin/discord --add-flags "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,WaylandWindowDecorations --ozone-platform-hint=wayland"
+      wrapProgram $out/bin/discord --add-flags "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,WaylandWindowDecorations --ozone-platform-hint=wayland --ozone-platform=wayland"
     '';
   };
 
@@ -23,7 +23,7 @@ let
     paths = [ pkgs.slack ];
     buildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
-      wrapProgram $out/bin/slack --add-flags "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,WaylandWindowDecorations --ozone-platform-hint=wayland"
+      wrapProgram $out/bin/slack --add-flags "--enable-features=UseOzonePlatform,WebRTCPipeWireCapturer,WaylandWindowDecorations --ozone-platform-hint=wayland --ozone-platform=wayland"
     '';
   };
 
@@ -32,7 +32,7 @@ let
     paths = [ pkgs.spotify ];
     buildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
-      wrapProgram $out/bin/spotify --add-flags "--enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=wayland"
+      wrapProgram $out/bin/spotify --add-flags "--enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=wayland --ozone-platform=wayland"
     '';
   };
 
@@ -41,7 +41,7 @@ let
     paths = [ pkgs.vscodium ];
     buildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
-      wrapProgram $out/bin/codium --add-flags "--enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=wayland"
+      wrapProgram $out/bin/codium --add-flags "--enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=wayland --ozone-platform=wayland"
     '';
   };
 in {
@@ -92,6 +92,6 @@ in {
     insomnia
     jetbrains.idea-community
     jetbrains.phpstorm
-    vscodium-wayland
+    vscode
   ];
 }
