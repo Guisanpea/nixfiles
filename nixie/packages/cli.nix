@@ -40,6 +40,7 @@ in {
     neovim
     ncdu            #
     nix-prefetch-github
+    nix-prefetch-git
     neofetch        #
     pv              #
     ripgrep         #

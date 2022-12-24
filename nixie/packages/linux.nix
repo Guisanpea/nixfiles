@@ -70,7 +70,7 @@ in {
     qbittorrent
     slack-wayland
     spicetify-cli
-    spotify-wayland
+    spotify
     vlc
     wineWowPackages.stable
     zathura

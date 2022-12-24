@@ -1,11 +1,9 @@
 { pkgs, ... }:
 
 let
-  browser = [
-    "firefox.desktop" # installed by home-manager, overlay turns this into devedition
-    # "firefox-devedition.desktop" # installed by home-manager
-    # "userapp-Firefox Developer Edition-4Z1P8Z.desktop" # installed by nixos-rebuild
-  ];
+  browser = [ "firefox.desktop" ];
+  fileManager = [ "ranger.desktop" ];
+
   associations = {
     "application/pdf" = [ "zathura" ];
     "text/html" = browser;
@@ -21,9 +19,11 @@ let
     "application/xhtml+xml" = browser;
     "application/x-extension-xhtml" = browser;
     "application/x-extension-xht" = browser;
+    "inode/directory" = fileManager;
   };
 in
 {
+  xdg.enable = true;
   xdg.mimeApps.enable = true;
   xdg.mimeApps.associations.added = associations;
   xdg.mimeApps.defaultApplications = associations;
