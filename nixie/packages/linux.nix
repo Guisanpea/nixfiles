@@ -67,6 +67,7 @@ in {
     gparted
     maestral
     maestral-gui
+    obsidian
     qbittorrent
     slack-wayland
     spicetify-cli
