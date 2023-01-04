@@ -20,6 +20,13 @@
       };
     };
 
+    windowManager.awesome = {
+      enable = true;
+      luaModules = with pkgs.luaPackages; [
+        luarocks # is the package manager for Lua modules
+        luadbi-mysql # Database abstraction layer
+      ];
+    };
     windowManager.i3 = {
       enable = true;
       package = pkgs.i3-gaps;
