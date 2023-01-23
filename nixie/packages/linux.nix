@@ -60,7 +60,6 @@ in {
     chromium
     clapper
     discord-wayland
-    dropbox
     escrotum
     firefox-wayland
     gnome.file-roller
@@ -68,7 +67,6 @@ in {
     maestral
     maestral-gui
     obsidian
-    onedrive
     qbittorrent
     slack-wayland
     spicetify-cli
@@ -76,7 +74,6 @@ in {
     vlc
     wineWowPackages.stable
     zathura
-    zoom
 
     # GAMES
     prismlauncher
@@ -90,7 +87,6 @@ in {
     wmname
 
     # DESKTOP DEVELOPMENT
-    ((emacsPackagesFor emacsPgtk).emacsWithPackages (epkgs: [epkgs.vterm]))
     insomnia
     jetbrains.idea-community
     jetbrains.phpstorm

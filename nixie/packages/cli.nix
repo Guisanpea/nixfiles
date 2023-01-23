@@ -34,6 +34,7 @@ in {
     gping           #
     htop            #
     imagemagick     #
+    iotop-c
     libtool
     libvterm
     navi            #
