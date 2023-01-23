@@ -29,7 +29,7 @@ font:
     family: Iosevka Nerd Font
   size: 12
 shell:
-  program: "/home/nixie/.nix-profile/bin/zsh"
+  program: "tmux"
 window:
   dimensions:
     columns: 100

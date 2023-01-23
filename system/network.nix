@@ -29,7 +29,7 @@ params: {
     '';
 
   services = {
-    blueman.enable = false;
+    blueman.enable = true;
   };
 
   hardware.bluetooth.enable = true;

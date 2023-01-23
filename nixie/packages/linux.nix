@@ -68,6 +68,7 @@ in {
     maestral
     maestral-gui
     obsidian
+    onedrive
     qbittorrent
     slack-wayland
     spicetify-cli
