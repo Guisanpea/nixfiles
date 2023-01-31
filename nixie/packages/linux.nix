@@ -89,7 +89,6 @@ in {
     # DESKTOP DEVELOPMENT
     insomnia
     jetbrains.idea-community
-    jetbrains.phpstorm
     vscodium-wayland
   ];
 }

@@ -17,7 +17,6 @@ in {
     ]) ++ (with pkgs.gnome; [
       atomix # puzzle game
       cheese
-      empathy # chat clientam tool
       epiphany # web browser
       evince # document viewer
       geary # email reader
