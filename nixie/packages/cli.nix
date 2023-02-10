@@ -3,13 +3,13 @@
 with pkgs;
 let
   my-php = php81.buildEnv {
-    extensions = { enabled, all }: with all; enabled ++ [ dom xdebug rdkafka ];
+    extensions = { enabled, all }: with all; enabled ++ [ dom rdkafka ];
     extraConfig = ''
       # xdebug.mode = debug
       # xdebug.start_with_request = yes
       # xdebug.discover_client_host=1
       # xdebug.client_port = 9000
-      memory_limit = 1G
+      # memory_limit = 8G
     '';
   };
 in {
@@ -34,9 +34,7 @@ in {
     gping           #
     htop            #
     imagemagick     #
-    iotop-c
     libtool
-    libvterm
     navi            #
     neovim
     ncdu            #
