@@ -85,9 +85,6 @@ in {
     nodePackages.npm
     nodejs
     prisma-engines
-    (p2205.php74Packages.composer.override {
-        php = my-php;
-    })
     sbt
     symfony-cli
     terraform
