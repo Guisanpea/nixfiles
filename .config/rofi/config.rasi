@@ -1,12 +1,3 @@
-{ pkgs, ... }:
-
-{
-  programs.rofi = {
-    enable = true;
-
-    package =  pkgs.rofi-wayland;
-
-    theme = builtins.toString (pkgs.writeText "rofi-theme" ''
 configuration {
   display-drun: "Applications:";
   display-window: "Windows:";
@@ -84,6 +75,4 @@ prompt {
   text-color: @fg;
 }
 
-    '');
-  };
-}
+/* vim: ft=sass

@@ -18,11 +18,11 @@ in
   home.username = "nixie";
   home.homeDirectory = "/home/nixie";
 
-  xdg.configFile."i3".source = "${dotfiles}/i3";
   xdg.configFile."alacritty".source = "${dotfiles}/alacritty";
+  xdg.configFile."i3".source = "${dotfiles}/i3";
+  xdg.configFile."nvim".source = "${astronvim}";
   xdg.configFile."sway/config".source = "${dotfiles}/sway/config.config";
   xdg.configFile."waybar".source = "${dotfiles}/waybar";
-  xdg.configFile."nvim".source = "${astronvim}";
 
   home.stateVersion = "20.09";
 }
