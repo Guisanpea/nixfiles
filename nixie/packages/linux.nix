@@ -53,6 +53,7 @@ in {
     playerctl
 
     # CLI
+    btop
     helm
 
     # DESKTOP

@@ -10,10 +10,6 @@
         Driver          "amdgpu"
         Option          "TearFree" "true"
     '';
-    displayManager.gdm = {
-      enable = true;
-      wayland = true;
-    };
     desktopManager = {
       gnome = {
         enable = true;
@@ -30,6 +26,16 @@
     windowManager.i3 = {
       enable = true;
       package = pkgs.i3-gaps;
+    };
+  };
+  services.greetd = {
+    enable = true;
+    settings = rec {
+      initial_session = {
+        command = "${pkgs.sway}/bin/sway";
+        user = "nixie";
+      };
+      default_session = initial_session;
     };
   };
 }

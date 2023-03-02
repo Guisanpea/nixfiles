@@ -49,7 +49,6 @@ in {
       swayidle
       wl-clipboard
       alacritty # Alacritty is the default terminal in the config
-      rofi-wayland # Dmenu is the default in the config but i recommend wofi since its wayland native
     ];
   };
 
