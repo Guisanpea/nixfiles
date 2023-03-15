@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   services.xserver = {
     enable = true;
     # Configure keymap in X11
@@ -6,9 +6,9 @@
     xkbVariant = "altgr-intl";
     xkbOptions = "eurosign:e, caps:swapescape";
     deviceSection = ''
-        Identifier      "AMD"
-        Driver          "amdgpu"
-        Option          "TearFree" "true"
+      Identifier      "AMD"
+      Driver          "amdgpu"
+      Option          "TearFree" "true"
     '';
     desktopManager = {
       gnome = {

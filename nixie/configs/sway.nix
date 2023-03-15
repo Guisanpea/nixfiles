@@ -1,10 +1,12 @@
 { pkgs, ... }:
 
 {
+  services.mako.enable = true;
+
   programs.rofi = {
     enable = true;
 
-    package =  pkgs.rofi-wayland;
+    package = pkgs.rofi-wayland;
 
     theme = builtins.toString (pkgs.writeText "rofi-theme" ''
       configuration {

@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   hardware.pulseaudio.extraConfig =
     ''
       default-sample-rate = 48000

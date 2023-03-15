@@ -7,7 +7,7 @@ params: {
   networking.useDHCP = false;
   networking.interfaces.enp42s0.useDHCP = true;
 
-    # Dont wait for network to launch
+  # Dont wait for network to launch
   systemd.services.systemd-udev-settle.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
 

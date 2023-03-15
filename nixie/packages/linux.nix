@@ -44,7 +44,8 @@ let
       wrapProgram $out/bin/codium --add-flags "--enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=wayland --ozone-platform=wayland"
     '';
   };
-in {
+in
+{
   home.packages = [
     # AUDIO
     cava
@@ -69,6 +70,7 @@ in {
     maestral-gui
     obsidian
     qbittorrent
+    rstudio
     slack-wayland
     spicetify-cli
     spotify

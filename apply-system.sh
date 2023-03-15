@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 
 cd ~/.dotfiles
-git pull
+#git pull
 rm ~/.config/mimeapps.list || :
 sudo -E nixos-rebuild switch --flake .#nixos --impure -L -v
 git add .

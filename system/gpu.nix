@@ -1,8 +1,8 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   # Enable big navi support
-  boot.initrd.kernelModules = ["amdgpu"];
-  boot.kernelParams = [ "radeon.cik_support=0" "amdgpu.cik_support=1" "radeon.si_support=0" "amdgpu.si_support=1"  ];
-  services.xserver.videoDrivers = ["amdgpu"];
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.kernelParams = [ "radeon.cik_support=0" "amdgpu.cik_support=1" "radeon.si_support=0" "amdgpu.si_support=1" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
   hardware.opengl = {
     enable = true;
   };

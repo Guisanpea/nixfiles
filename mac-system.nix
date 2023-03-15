@@ -1,16 +1,10 @@
-{ pkgs, lib, config, ... }:
-{
+{ pkgs, lib, config, ... }: {
   # Nix configuration ------------------------------------------------------------------------------
 
-  nix.settings.substituters = [
-    "https://cache.nixos.org/"
-  ];
-  nix.settings.trusted-public-keys = [
-    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-  ];
-  nix.settings.trusted-users = [
-    "@admin"
-  ];
+  nix.settings.substituters = [ "https://cache.nixos.org/" ];
+  nix.settings.trusted-public-keys =
+    [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+  nix.settings.trusted-users = [ "@admin" ];
   nix.configureBuildUsers = true;
 
   nix.extraOptions = ''
@@ -29,10 +23,7 @@
   # Apps
   # `home-manager` currently has issues adding them to `~/Applications`
   # Issue: https://github.com/nix-community/home-manager/issues/1341
-  environment.systemPackages = with pkgs; [
-    kitty
-    terminal-notifier
-  ];
+  environment.systemPackages = with pkgs; [ kitty terminal-notifier ];
 
   # https://github.com/nix-community/home-manager/issues/423
   programs.nix-index.enable = true;
@@ -40,25 +31,27 @@
   # Fonts
   fonts.fontDir.enable = true;
   fonts.fonts = with pkgs; [
-     recursive
-     (nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" "FiraCode" ]; })
-   ];
+    recursive
+    (nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" "FiraCode" ]; })
+  ];
 
   # Keyboard
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToEscape = true;
 
-  system.activationScripts.applications.text = pkgs.lib.mkForce (''
-      echo "setting up ~/Applications/Nix..."
-      rm -rf ~/Applications/Nix
-      mkdir -p ~/Applications/Nix
-      chown ssanchez ~/Applications/Nix
-      find ${config.system.build.applications}/Applications -maxdepth 1 -type l | while read f; do
-        src="$(/usr/bin/stat -f%Y $f)"
-        appname="$(basename $src)"
-        osascript -e "tell app \"Finder\" to make alias file at POSIX file \"/Users/ssanchez/Applications/Nix/\" to POSIX file \"$src\" with properties {name: \"$appname\"}";
-    done
-  '');
+  system.activationScripts.applications.text = pkgs.lib.mkForce (
+    ''
+        echo "setting up ~/Applications/Nix..."
+        rm -rf ~/Applications/Nix
+        mkdir -p ~/Applications/Nix
+        chown ssanchez ~/Applications/Nix
+        find ${config.system.build.applications}/Applications -maxdepth 1 -type l | while read f; do
+          src="$(/usr/bin/stat -f%Y $f)"
+          appname="$(basename $src)"
+          osascript -e "tell app \"Finder\" to make alias file at POSIX file \"/Users/ssanchez/Applications/Nix/\" to POSIX file \"$src\" with properties {name: \"$appname\"}";
+      done
+    ''
+  );
 
   services.spacebar = {
     enable = true;

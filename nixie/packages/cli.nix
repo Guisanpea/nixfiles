@@ -12,46 +12,47 @@ let
       memory_limit = 1G
     '';
   };
-in {
+in
+{
   home.packages = with pkgs; [
     # CLI
-    aria2           #
-    bat             #
-    broot           #
-    cachix          #
-    cowsay          #
-    delta           #
-    duf             #
-    exa             #
-    fd              #
-    feh             #
-    fortune         #
-    gdu             #
-    git             #
-    git-crypt       #
-    glances         #
-    gnupg           #
-    gping           #
-    htop            #
-    imagemagick     #
+    aria2 #
+    bat #
+    broot #
+    cachix #
+    cowsay #
+    delta #
+    duf #
+    exa #
+    fd #
+    feh #
+    fortune #
+    gdu #
+    git #
+    git-crypt #
+    glances #
+    gnupg #
+    gping #
+    htop #
+    imagemagick #
     iotop-c
     libtool
     libvterm
-    navi            #
+    navi #
     neovim
-    ncdu            #
+    ncdu #
     nix-prefetch-github
     nix-prefetch-git
-    neofetch        #
-    pv              #
-    ripgrep         #
-    tldr            #
-    tmux            #
-    tree            #
-    unrar           #
-    unzip           #
+    neofetch #
+    pv #
+    ripgrep #
+    tldr #
+    tmux #
+    tree #
+    unrar #
+    unzip #
     wireguard-tools #
-    zip             #
+    zip #
 
     # DEVELOPMENT
     apacheKafka
@@ -62,6 +63,7 @@ in {
     chromedriver
     cmake
     coursier
+    curl
     dbeaver
     docker-compose
     elixir

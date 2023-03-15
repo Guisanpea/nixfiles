@@ -1,11 +1,15 @@
-{ pkgs, ... }: 
-let 
+{ pkgs, ... }:
+let
   filteredNerdFonts = pkgs.nerdfonts.override { fonts = [ "FiraCode" "Iosevka" "JetBrainsMono" ]; };
-in {
+in
+{
   environment = {
     systemPackages = with pkgs; [
       # Terminal
-      git neovim wget zsh
+      git
+      neovim
+      wget
+      zsh
       # Desktop
       firefox-wayland
     ];
