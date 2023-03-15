@@ -37,7 +37,6 @@ in {
     libtool
     navi            #
     neovim
-    ncdu            #
     nix-prefetch-github
     nix-prefetch-git
     neofetch        #
@@ -65,7 +64,6 @@ in {
     elixir
     elixir_ls
     erlang
-    gcc
     gh
     gnumake
     gradle
@@ -83,9 +81,6 @@ in {
     nodePackages.npm
     nodejs
     prisma-engines
-    (p2205.php74Packages.composer.override {
-        php = my-php;
-    })
     sbt
     symfony-cli
     terraform
