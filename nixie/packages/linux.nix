@@ -53,6 +53,7 @@ in {
     playerctl
 
     # CLI
+    btop
     helm
 
     # DESKTOP
@@ -89,6 +90,7 @@ in {
     # DESKTOP DEVELOPMENT
     insomnia
     jetbrains.idea-community
+    mongodb-compass
     vscodium-wayland
   ];
 }

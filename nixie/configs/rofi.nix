@@ -4,120 +4,86 @@
   programs.rofi = {
     enable = true;
 
+    package =  pkgs.rofi-wayland;
+
     theme = builtins.toString (pkgs.writeText "rofi-theme" ''
-      /**
-      * Copyright: deadguy
-      * (edited by Litarvan)
-      */
       configuration {
-        display-drun:    "Activate";
-        display-run:     "Execute";
-        display-window:  "Window";
-        show-icons:      true;
-        sidebar-mode:    true;
-        font: "Roboto 11";
+        display-drun: "Applications:";
+        display-window: "Windows:";
+        drun-display-format: "{name}";
+        font: "JetBrainsMono Nerd Font Medium 18";
+        modi: "window,run,drun,emoji,calc";
       }
+
+      @theme "/dev/null"
+
       * {
-        background-color:            transparent;
-        text-color:                  #b2aea8;
-        selbg:                       #3949A3;
-        actbg:                       #262626;
-        urgbg:                       #e53935;
-        winbg:                       #B3BEFF;
-        selected-normal-foreground:  @winbg;
-        normal-foreground:           @text-color;
-        selected-normal-background:  @actbg;
-        normal-background:           @background-color;
-        selected-urgent-foreground:  @background-color;
-        urgent-foreground:           @text-color;
-        selected-urgent-background:  @urgbg;
-        urgent-background:           @background-color;
-        selected-active-foreground:  @winbg;
-        active-foreground:           @text-color;
-        selected-active-background:  @actbg;
-        active-background:           @selbg;
-        line-margin:                 2;
-        line-padding:                2;
-        separator-style:             "none";
-        hide-scrollbar:              "true";
-        margin:                      0;
-        padding:                     0;
+        bg: #11121D;
+        bg-alt: #444b6a;
+
+        fg: #FFFFFF;
+        fg-alt: #787c99;
+
+        background-color: @bg;
+        
+        border: 0;
+        margin: 0;
+        padding: 0;
+        spacing: 0;
       }
+
       window {
-        transparency: "real";
-        background-color: #000000AA;
-        location:  north west;
-        anchor:    north west;
-        height:    50%;
-        width:    18%;
-        orientation:  horizontal;
-        children:  [mainbox];
-        x-offset:  29px;        
-        y-offset:  57px;
+        width: 30%;
       }
-      mainbox {
-        spacing:  0.8em;
-        children: [entry, listview ];
+
+      element {
+        padding: 8 0;
+        text-color: @fg-alt;
       }
-      button { padding: 5px 2px; }
-      button selected {
-        background-color: @active-background;
-        text-color:       @background-color;
+
+      element selected {
+        text-color: @fg;
       }
-      inputbar {
-        padding: 5px;
-        spacing: 5px;
+
+      element-text {
+        text-color: inherit;
+        vertical-align: 0.5;
       }
-      listview {
-        spacing: 0.5em;
-        dynamic: false;
-        cycle:   false;
+
+      element-icon {
+        size: 14;
+        padding: 0 10 0 0;
       }
-      element { padding: 10px; }
+
       entry {
-        expand:         false;
-        text-color:     @normal-foreground;
-        vertical-align: 1;
-        padding:        5px;
+        background-color: @bg-alt;
+        padding: 12;
+        text-color: @fg;
       }
-      element normal.normal {
-        background-color: @normal-background;
-        text-color:       @normal-foreground;
+
+      inputbar {
+        children: [prompt, entry];
       }
-      element normal.urgent {
-        background-color: @urgent-background;
-        text-color:       @urgent-foreground;
+
+      listview {
+        padding: 8 12;
+        background-color: @bg;
+        columns: 1;
+        lines: 8;
       }
-      element normal.active {
-        background-color: @active-background;
-        text-color:       @active-foreground;
+
+      mainbox {
+        background-color: @bg;
+        children: [inputbar, listview];
       }
-      element selected.normal {
-        background-color: @selected-normal-background;
-        text-color:       @selected-normal-foreground;
-        border:           0 5px solid 0 0;
-        border-color:      @active-background;
+
+      prompt {
+        background-color: @bg-alt;
+        enabled: true;
+        padding: 12 0 0 12;
+        text-color: @fg;
       }
-      element selected.urgent {
-        background-color: @selected-urgent-background;
-        text-color:       @selected-urgent-foreground;
-      }
-      element selected.active {
-        background-color: @selected-active-background;
-        text-color:       @selected-active-foreground;
-      }
-      element alternate.normal {
-        background-color: @normal-background;
-        text-color:       @normal-foreground;
-      }
-      element alternate.urgent {
-        background-color: @urgent-background;
-        text-color:       @urgent-foreground;
-      }
-      element alternate.active {
-        background-color: @active-background;
-        text-color:       @active-foreground;
-      }
+
     '');
   };
 }
