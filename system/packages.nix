@@ -14,6 +14,7 @@ in
       firefox-wayland
     ];
     variables.EDITOR = "nvim";
+    sessionVariables.NIXOS_OZONE_WL = "1";
     gnome.excludePackages = (with pkgs; [
       gnome-photos
       gnome-tour

@@ -8,6 +8,8 @@
     extraGroups = [ "wheel" "docker" "adbusers" ]; # Enable ‘sudo’ for the user.
   };
 
+  programs.zsh.enable = true;
+
   users.defaultUserShell = pkgs.zsh;
 
   nix.settings.trusted-users = [ "root" "nixie" ];
