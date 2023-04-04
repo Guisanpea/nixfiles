@@ -4,7 +4,6 @@ let
 in 
 self: super: {
   jetbrains.idea-community = jetbrains.idea-community.overrideAttrs (_: {
-    inherit idea-version;
     src = self.fetchurl {
       inherit idea-sha256;
       url = "https://download.jetbrains.com/idea/ideaIC-${version}.tar.gz";
