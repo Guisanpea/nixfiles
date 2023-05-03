@@ -55,5 +55,5 @@
   };
 
 
-  fonts.fonts = [ (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
+  fonts.fonts = [ (pkgs.stable.nerdfonts.override { fonts = [ "Iosevka" ]; }) ];
 }
