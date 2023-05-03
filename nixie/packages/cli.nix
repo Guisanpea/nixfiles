@@ -15,7 +15,6 @@ let
 in {
   home.packages = with pkgs; [
     # CLI
-    aria2
     bat
     broot
     cachix
@@ -29,7 +28,6 @@ in {
     gdu
     git
     git-crypt
-    glances
     gnupg
     gping
     htop
@@ -51,41 +49,19 @@ in {
     zip
 
     # DEVELOPMENT
-    apacheKafka
-    argocd
-    asdf-vm
-    awscli
     binutils
-    chromedriver
-    cmake
-    coursier
     curl
-    direnv
-    dbeaver
     docker-compose
     elixir
     elixir_ls
-    erlang
     gh
-    gnumake
-    gradle
     httpie
-    jdk
-    k9s
-    kafkacat
     kubectl
-    kubectx
-    kubelogin
-    metals
     my-php
     mysql
     nixfmt
     nodePackages.npm
     nodejs
-    prisma-engines
-    sbt
-    symfony-cli
-    terraform
     yarn
   ];
 }

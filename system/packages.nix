@@ -1,7 +1,4 @@
 { pkgs, ... }:
-let
-  filteredNerdFonts = pkgs.nerdfonts.override { fonts = [ "FiraCode" "Iosevka" "JetBrainsMono" ]; };
-in
 {
   environment = {
     systemPackages = with pkgs; [
@@ -58,5 +55,5 @@ in
   };
 
 
-  fonts.fonts = with pkgs; [ font-awesome filteredNerdFonts ];
+  fonts.fonts = [ (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
 }

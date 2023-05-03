@@ -19,14 +19,6 @@ params: {
   # };
   networking.nameservers = [ "1.1.1.1" ];
   # systemd.network.networks.enp3s0.dns = [ "1.1.1.1" ];
-  networking.extraHosts =
-    ''
-      127.0.0.1 mysql-database
-      127.0.0.1 rabbitmq
-      127.0.0.1 redis
-      127.0.0.1 kubernetes.docker.internal
-      127.0.0.1 localhost
-    '';
 
   services = {
     blueman.enable = true;

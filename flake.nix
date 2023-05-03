@@ -3,7 +3,7 @@
 
   inputs = {
     unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    stable.url = "github:nixos/nixpkgs/nixos-22.11";
 
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -18,16 +18,19 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = inputs@{ nixpkgs, darwin, home-manager, unstable, ... }:
+  outputs = inputs@{ nixpkgs, darwin, home-manager, unstable, stable, ... }:
     let
       linuxSystem = "x86_64-linux";
       macSystem = "aarch64-darwin";
-      nixpkgs-overlays = final: prev: {
-        unstable = unstable.legacyPackages.${prev.system};
+      overlay-stable = system: final: prev: { 
+        stable = import inputs.stable {
+           inherit system;
+           config.allowUnfree = true;
+        };
       };
       pkgs = system: import nixpkgs {
         inherit system;
-        overlays = [ inputs.emacs-overlay.overlay nixpkgs-overlays ];
+        overlays = [ (overlay-stable system) ];
         config = { allowUnfree = true; };
       };
     in
@@ -36,7 +39,7 @@
       # Linux config
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = linuxSystem;
-        pkgs = pkgs "x86_64-linux";
+        pkgs = pkgs linuxSystem;
         modules = [
           ./system/configuration.nix
           home-manager.nixosModules.home-manager
@@ -51,7 +54,7 @@
       darwinConfigurations = {
         ssanchez = darwin.lib.darwinSystem {
           system = macSystem;
-          pkgs = pkgs "aarch64-darwin";
+          pkgs = pkgs macSystem;
           modules = [
             ./mac-system.nix
             home-manager.darwinModules.home-manager

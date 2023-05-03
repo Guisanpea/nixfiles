@@ -12,13 +12,11 @@ in
 {
   home.packages = [
     # AUDIO
-    cava
-    dmidecode
     pavucontrol
     playerctl
 
     # CLI
-    btop
+    bottom
     helm
 
     # DESKTOP
@@ -26,13 +24,9 @@ in
     chromium
     clapper
     discord
-    escrotum
     firefox-wayland
     gnome.file-roller
     gparted
-    maestral
-    maestral-gui
-    obsidian
     qbittorrent
     rstudio
     slack
@@ -40,11 +34,11 @@ in
     spotify
     vlc
     vscodium
-    wineWowPackages.stable
     zathura
 
     # GAMES
-    prismlauncher
+    jdk17
+    stable.prismlauncher
 
     # WAYLAND
     grim
@@ -57,6 +51,5 @@ in
     # DESKTOP DEVELOPMENT
     insomnia
     jetbrains.idea-community
-    mongodb-compass
   ];
 }
