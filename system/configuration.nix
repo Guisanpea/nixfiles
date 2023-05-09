@@ -12,7 +12,6 @@
       ./hardware-configuration.nix # Include the results of the hardware scan.
       ./network.nix
       ./packages.nix
-      ./sound.nix
       ./users.nix
       ./xserver.nix
     ];
