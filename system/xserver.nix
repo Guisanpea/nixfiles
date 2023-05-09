@@ -5,11 +5,6 @@
     layout = "us";
     xkbVariant = "altgr-intl";
     xkbOptions = "eurosign:e, caps:swapescape";
-    deviceSection = ''
-      Identifier      "AMD"
-      Driver          "amdgpu"
-      Option          "TearFree" "true"
-    '';
     desktopManager = {
       gnome = {
         enable = true;
@@ -49,13 +44,6 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    # gtk portal needed to make gtk apps happy
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  # enable sway window manager
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-  };
 }

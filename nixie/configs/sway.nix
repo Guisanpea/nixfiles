@@ -1,7 +1,23 @@
 { pkgs, ... }:
 
-{
-  services.mako.enable = true;
+let
+  dbus-sway-environment = pkgs.writeShellScriptBin "dbus-sway-environment" ''
+    dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+    systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
+    systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
+  '';
+  dotfiles = ../../.config;
+in {
+
+  wayland.windowManager.sway = {
+    enable = true;
+    wrapperFeatures = {
+      base = false;
+      gtk = false;
+    };
+    xwayland = true;
+    extraConfig = builtins.readFile "${dotfiles}/sway/config.config";
+  };
 
   programs.rofi = {
     enable = true;

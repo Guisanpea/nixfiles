@@ -41,19 +41,5 @@
     ]);
   };
 
-  programs.waybar.enable = true;
-
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true; # so that gtk works properly
-    extraPackages = with pkgs; [
-      swaylock
-      swayidle
-      wl-clipboard
-      alacritty # Alacritty is the default terminal in the config
-    ];
-  };
-
-
   fonts.fonts = [ (pkgs.stable.nerdfonts.override { fonts = [ "Iosevka" ]; }) ];
 }
