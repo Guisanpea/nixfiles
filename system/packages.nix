@@ -1,7 +1,4 @@
 { pkgs, ... }:
-let
-  filteredNerdFonts = pkgs.nerdfonts.override { fonts = [ "FiraCode" "Iosevka" "JetBrainsMono" ]; };
-in
 {
   environment = {
     systemPackages = with pkgs; [
@@ -44,19 +41,5 @@ in
     ]);
   };
 
-  programs.waybar.enable = true;
-
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true; # so that gtk works properly
-    extraPackages = with pkgs; [
-      swaylock
-      swayidle
-      wl-clipboard
-      alacritty # Alacritty is the default terminal in the config
-    ];
-  };
-
-
-  fonts.fonts = with pkgs; [ font-awesome filteredNerdFonts ];
+  fonts.fonts = [ (pkgs.stable.nerdfonts.override { fonts = [ "Iosevka" ]; }) ];
 }

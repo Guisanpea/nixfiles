@@ -12,7 +12,6 @@
       ./hardware-configuration.nix # Include the results of the hardware scan.
       ./network.nix
       ./packages.nix
-      ./sound.nix
       ./users.nix
       ./xserver.nix
     ];
@@ -32,6 +31,8 @@
   time.timeZone = "Europe/Madrid";
 
   virtualisation.docker.enable = true;
+
+  hardware.pulseaudio.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

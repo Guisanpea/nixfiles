@@ -14,8 +14,6 @@ in
 
   xdg.configFile."alacritty".source = "${dotfiles}/alacritty";
   xdg.configFile."i3".source = "${dotfiles}/i3";
-  xdg.configFile."mako".source = "${dotfiles}/mako";
-  xdg.configFile."sway/config".source = "${dotfiles}/sway/config.config";
   xdg.configFile."waybar".source = "${dotfiles}/waybar";
 
   home.stateVersion = "20.09";
