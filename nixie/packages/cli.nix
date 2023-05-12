@@ -34,7 +34,6 @@ in {
     gping
     htop
     imagemagick
-    libtool
     navi
     neovim
     nix-prefetch-github
@@ -58,6 +57,7 @@ in {
     binutils
     chromedriver
     cmake
+    php82Packages.composer
     coursier
     curl
     direnv
