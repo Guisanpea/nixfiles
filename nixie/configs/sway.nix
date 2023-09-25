@@ -1,23 +1,34 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
-  dbus-sway-environment = pkgs.writeShellScriptBin "dbus-sway-environment" ''
-    dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-    systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
-    systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
-  '';
   dotfiles = ../../.config;
 in {
-
+  home.packages = [ pkgs.dconf ];
   wayland.windowManager.sway = {
     enable = true;
+    systemdIntegration = true;
     wrapperFeatures = {
       base = false;
       gtk = false;
     };
     xwayland = true;
+    config = rec {
+      gaps.smartBorders = "on";
+      terminal = "${pkgs.alacritty}/bin/alacritty -e tmux";
+      bars = [ ];
+      modifier = "Mod4";
+      keybindings = lib.mkOptionDefault {
+        "${modifier}+shift+Return" =
+          "exec MOZ_ENABLE_WAYLAND=1 ${pkgs.firefox}/bin/firefox";
+        "${modifier}+space" =
+          "exec ${pkgs.rofi-wayland}/bin/rofi -modi drun -show drun | xargs swaymsg exec --";
+      };
+      floating.titlebar = true;
+    };
     extraConfig = builtins.readFile "${dotfiles}/sway/config.config";
   };
+
+  programs.waybar.enable = true;
 
   programs.rofi = {
     enable = true;

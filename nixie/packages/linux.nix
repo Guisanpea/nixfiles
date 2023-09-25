@@ -2,7 +2,15 @@
 
 
 with pkgs;
-{
+let vscode-insiders =
+    (pkgs.vscode.override { isInsiders = true; }).overrideAttrs (oldAttrs: rec {
+      src = (builtins.fetchTarball {
+        url = "https://code.visualstudio.com/sha/download?build=insider&os=linux-x64";
+        sha256 = "09j6h0h4lvsh05h92fg66jc4dpfd5nx2mrbs8srdwxpks5gz5s3d";
+      });
+      version = "latest";
+    });
+in {
   home.packages = [
     # AUDIO
     pavucontrol
@@ -11,6 +19,7 @@ with pkgs;
     # CLI
     bottom
     helm
+    bind
 
     # DESKTOP
     blueman
@@ -23,12 +32,16 @@ with pkgs;
     qbittorrent
     spotify
     vlc
-    vscodium
+    vscode-insiders
+    teamviewer
+
     zathura
 
     # GAMES
     jdk17
-    stable.prismlauncher
+    lutris
+    prismlauncher
+    wine
 
     # WAYLAND
     grim

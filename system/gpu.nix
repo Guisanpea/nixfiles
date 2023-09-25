@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   # Enable big navi support
   boot.initrd.kernelModules = [ "amdgpu" ];
-  services.xserver.videoDrivers = [ "amdgpu" ];
   hardware.opengl = { enable = true; };
   # Enable vulkan
   hardware.opengl.driSupport = true;
@@ -11,5 +10,8 @@
     amdvlk
     rocm-opencl-icd
     rocm-opencl-runtime
+  ];
+  hardware.opengl.extraPackages32 = with pkgs; [
+    driversi686Linux.amdvlk
   ];
 }

@@ -41,5 +41,5 @@
     ]);
   };
 
-  fonts.fonts = [ (pkgs.stable.nerdfonts.override { fonts = [ "Iosevka" ]; }) ];
+  fonts.fonts = [ (pkgs.nerdfonts.override { fonts = [ "Iosevka" ]; }) ];
 }
