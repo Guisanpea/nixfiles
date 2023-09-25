@@ -19,7 +19,7 @@ in
       csf = "./vendor/bin/php-cs-fixer fix";
     };
     initExtra = ''
-      export PATH=$PATH:~/.local/npm/bin;
+      export PATH=$PATH:~/.local/npm/bin:~/.rd/bin;
     '';
     # https://github.com/NixOS/nixpkgs/issues/27587
     plugins = [
