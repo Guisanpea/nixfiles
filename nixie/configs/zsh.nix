@@ -22,7 +22,7 @@ in
       doom = "~/.config/emacs/bin/doom";
     };
     initExtra = ''
-      export PATH=$PATH:~/.local/npm/bin;
+      export PATH=$PATH:~/.local/npm/bin:~/.rd/bin;
       export MOZ_ENABLE_WAYLAND=1
     '';
     # https://github.com/NixOS/nixpkgs/issues/27587

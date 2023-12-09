@@ -2,14 +2,14 @@
 
 with pkgs;
 let
-  my-php = php81.buildEnv {
-    extensions = { enabled, all }: with all; enabled ++ [ dom rdkafka ];
+  my-php = stable.php80.buildEnv {
+    extensions = { enabled, all }: with all; enabled ++ [ dom rdkafka xdebug ];
     extraConfig = ''
-      # xdebug.mode = debug
-      # xdebug.start_with_request = yes
-      # xdebug.discover_client_host=1
-      # xdebug.client_port = 9000
-      # memory_limit = 8G
+      xdebug.mode = debug
+      xdebug.start_with_request = yes
+      xdebug.discover_client_host=1
+      xdebug.client_port = 9000
+      memory_limit = 8G
     '';
   };
 in
@@ -36,7 +36,6 @@ in
     htop
     imagemagick
     lazygit
-    libtool
     navi
     neovim
     nil

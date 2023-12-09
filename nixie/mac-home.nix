@@ -8,4 +8,7 @@
   home.packages = with pkgs; [
     m-cli
   ];
+  home.sessionPath = [
+    "$HOME/.rd/bin"
+  ];
 }
