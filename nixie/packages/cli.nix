@@ -12,10 +12,12 @@ let
       # memory_limit = 8G
     '';
   };
-in {
+in
+{
   home.packages = with pkgs; [
     # CLI
     bat
+    bottom
     broot
     cachix
     cowsay
@@ -25,6 +27,7 @@ in {
     fd
     feh
     fortune
+    fzf
     gdu
     git
     git-crypt
@@ -32,11 +35,14 @@ in {
     gping
     htop
     imagemagick
+    lazygit
     libtool
     navi
     neovim
+    nil
     nix-prefetch-github
     nix-prefetch-git
+    nixpkgs-fmt
     neofetch
     pv
     ripgrep
@@ -63,5 +69,9 @@ in {
     nodePackages.npm
     nodejs
     yarn
+
+    # Install packages on arch tools
+    gcc
+    gnumake
   ];
 }

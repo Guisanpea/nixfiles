@@ -7,20 +7,23 @@
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "stable";
 
+    astronvim.url = "github:astronvim/astronvim/v3.36.11";
+    astronvim.flake = false;
+
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "stable";
     };
   };
 
-  outputs = inputs@{ darwin, home-manager, stable, ... }:
+  outputs = inputs@{ astronvim, darwin, home-manager, stable, ... }:
     let
       linuxSystem = "x86_64-linux";
       macSystem = "aarch64-darwin";
-      overlay-stable = system: final: prev: { 
+      overlay-stable = system: final: prev: {
         stable = import stable {
-           inherit system;
-           config.allowUnfree = true;
+          inherit system;
+          config.allowUnfree = true;
         };
       };
       pkgs = system: import stable {
@@ -28,8 +31,12 @@
         overlays = [ (overlay-stable system) ];
         config = { allowUnfree = true; };
       };
+      specialArgs = {
+        inherit astronvim;
+      };
     in
     {
+
       formatter.x86_64-linux = stable.legacyPackages.x86_64-linux.nixpkgs-fmt;
       # Linux config
       nixosConfigurations.nixos = stable.lib.nixosSystem {
@@ -41,7 +48,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.nixie = import ./nixie/linux-home.nix;
+            home-manager.users.nixie = import ./nixie/linux-home.nix { inherit astronvim; };
           }
         ];
       };
@@ -60,6 +67,18 @@
             }
           ];
         };
+      };
+      # Arch config
+      homeConfigurations."archie" = home-manager.lib.homeManagerConfiguration {
+        pkgs = pkgs linuxSystem;
+
+        extraSpecialArgs = specialArgs;
+        # Specify your home configuration modules here, for example,
+        # the path to your home.nix.
+        modules = [ ./archie.nix ];
+
+        # Optionally use extraSpecialArgs
+        # to pass through arguments to home.nix
       };
     };
 }

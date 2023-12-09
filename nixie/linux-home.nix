@@ -5,9 +5,9 @@ let
 in
 {
   imports = [
-    ./packages/linux.nix
+    ./packages/linux.nix 
     ./configs/linux.nix
-    ./common-home.nix
+    ./common-home.nix 
   ];
   home.username = "nixie";
   home.homeDirectory = "/home/nixie";
