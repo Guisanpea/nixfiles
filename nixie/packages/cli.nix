@@ -54,7 +54,6 @@ in
     zip
 
     # DEVELOPMENT
-    binutils
     curl
     docker-compose
     elixir
@@ -68,9 +67,5 @@ in
     nodePackages.npm
     nodejs
     yarn
-
-    # Install packages on arch tools
-    gcc
-    gnumake
   ];
 }
