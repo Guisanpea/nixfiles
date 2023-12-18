@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./common-home.nix
+    ./common-home.nix 
     ./configs/common.nix
   ];
   home.packages = with pkgs; [

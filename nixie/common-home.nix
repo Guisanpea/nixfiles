@@ -2,12 +2,6 @@
 
 let
   dotfiles = ../.config;
-  vim = pkgs.fetchFromGitHub {
-    owner = "LazyVim";
-    repo = "starter";
-    rev = "9ad6acdff121ad344cebeb640b48e6ed4d5a8f58";
-    hash = "sha256-F/jipxu8+I0uIJBdTc8PdTFXDwTX7dYYudGessV9xh4=";
-  };
 in
 {
   nixpkgs.overlays = [ (import ./overlays/main.nix) ];
@@ -21,7 +15,6 @@ in
 
   xdg.configFile."tmux".source = "${dotfiles}/tmux";
   xdg.configFile."doom".source = "${dotfiles}/doom.d";
-  xdg.configFile."nvim".source = "${vim}";
   home.file.".npmrc".source = "${dotfiles}/npmrc";
 
   home.stateVersion = "20.09";

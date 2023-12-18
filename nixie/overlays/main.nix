@@ -3,12 +3,6 @@ let
   idea-sha256 = "3029c751c36d86fef0021feceb8f3010d37aebd42aef6d6aed9e3b9207c2d2ac";
 in 
 self: super: {
-  jetbrains.idea-community = jetbrains.idea-community.overrideAttrs (_: {
-    src = self.fetchurl {
-      inherit idea-sha256;
-      url = "https://download.jetbrains.com/idea/ideaIC-${version}.tar.gz";
-    };
-  })
   waybar = super.waybar.override {
     pulseSupport = true;
     withMediaPlayer = true;

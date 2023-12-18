@@ -13,13 +13,17 @@ in
     shellAliases = {
       k = "kubectl";
       ls = "exa";
+      anix = "/home/archie/.dotfiles/apply-arch.sh";
       mnix = "/Users/ssanchez/.dotfiles/apply-mac.sh";
       unix = "/home/nixie/.dotfiles/update.sh";
       snix = "/home/nixie/.dotfiles/apply-system.sh";
       csf = "./vendor/bin/php-cs-fixer fix";
+#      code = "code --enable-features=UseOzonePlatform --ozone-platform=wayland --ozone-platform-hint=auto";
+      doom = "~/.config/emacs/bin/doom";
     };
     initExtra = ''
       export PATH=$PATH:~/.local/npm/bin:~/.rd/bin;
+      export MOZ_ENABLE_WAYLAND=1
     '';
     # https://github.com/NixOS/nixpkgs/issues/27587
     plugins = [
@@ -52,11 +56,6 @@ in
         name = "autostart";
         src = dotfiles;
         file = "zsh/autostart.zsh";
-      }
-      {
-        name = "bash private functions";
-        src = "${home}/.config/bash";
-        file = "functions.sh";
       }
       {
         name = "zsh-z";
