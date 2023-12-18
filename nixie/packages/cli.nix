@@ -2,14 +2,14 @@
 
 with pkgs;
 let
-  my-php = stable.php80.buildEnv {
-    extensions = { enabled, all }: with all; enabled ++ [ dom rdkafka xdebug ];
+  my-php = php81.buildEnv {
+    extensions = ({ enabled, all }: enabled ++ [ all.dom all.rdkafka all.xdebug ]);
     extraConfig = ''
-      xdebug.mode = debug
-      xdebug.start_with_request = yes
-      xdebug.discover_client_host=1
-      xdebug.client_port = 9000
+      xdebug.client_host=localhost
+      xdebug.client_port="9003"
       memory_limit = 8G
+      max_execution_time = 600
+      xdebug.mode = debug
     '';
   };
 in {
@@ -51,8 +51,6 @@ in {
     binutils
     curl
     docker-compose
-    elixir
-    elixir_ls
     gh
     httpie
     kubectl
@@ -61,6 +59,8 @@ in {
     nixfmt
     nodePackages.npm
     nodejs
+    python3
+    symfony-cli
     yarn
   ];
 }

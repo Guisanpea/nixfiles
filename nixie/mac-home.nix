@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 
 {
   imports = [
@@ -11,4 +11,5 @@
   home.sessionPath = [
     "$HOME/.rd/bin"
   ];
+   home.homeDirectory = lib.mkForce "/Users/ssanchez";
 }
