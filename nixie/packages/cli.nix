@@ -58,6 +58,7 @@ in
     docker-compose
     gh
     httpie
+    jdk
     kubectl
     my-php
     mysql
