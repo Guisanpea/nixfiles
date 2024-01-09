@@ -54,6 +54,7 @@ in
     zip
 
     # DEVELOPMENT
+    clojure
     curl
     docker-compose
     gh
