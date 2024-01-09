@@ -58,10 +58,12 @@ in
     zip
 
     # DEVELOPMENT
+    clojure
     curl
     docker-compose
     gh
     httpie
+    jdk
     kubectl
     mysql
     nixfmt
