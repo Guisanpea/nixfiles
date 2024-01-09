@@ -14,12 +14,14 @@ in
       k = "kubectl";
       ls = "exa";
       anix = "/home/archie/.dotfiles/apply-arch.sh";
+      test-sway = "/home/archie/.dotfiles/scripts/sway-test.sh";
       mnix = "/Users/ssanchez/.dotfiles/apply-mac.sh";
       unix = "/home/nixie/.dotfiles/update.sh";
       snix = "/home/nixie/.dotfiles/apply-system.sh";
       csf = "./vendor/bin/php-cs-fixer fix";
 #      code = "code --enable-features=UseOzonePlatform --ozone-platform=wayland --ozone-platform-hint=auto";
       doom = "~/.config/emacs/bin/doom";
+      archpath = "export PATH=$(echo $PATH | tr ':' '\n' | grep -v '/.nix-profile' | grep -v '/nix/var/nix/profiles' | tr '\n' ':' | sed 's/:$//')";
     };
     initExtra = ''
       export PATH=$PATH:~/.local/npm/bin:~/.rd/bin;

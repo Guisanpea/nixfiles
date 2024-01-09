@@ -5,11 +5,15 @@ let
   my-php = php81.buildEnv {
     extensions = ({ enabled, all }: enabled ++ [ all.dom all.rdkafka all.xdebug ]);
     extraConfig = ''
-      xdebug.client_host=localhost
-      xdebug.client_port="9003"
       memory_limit = 8G
       max_execution_time = 600
+      [xdebug]
       xdebug.mode = debug
+      xdebug.start_with_request = trigger
+      xdebug.discover_client_host = 1
+      xdebug.client_host=127.0.0.1
+      xdebug.log=/var/www/var/log/xdebug.log
+      xdebug.log_level=0
     '';
   };
 in
@@ -59,13 +63,16 @@ in
     gh
     httpie
     kubectl
-    my-php
     mysql
     nixfmt
     nodePackages.npm
     nodejs
     python3
-    symfony-cli
     yarn
+
+    # PHP
+    my-php
+    my-php.packages.composer
+    symfony-cli
   ];
 }
