@@ -57,6 +57,7 @@ in
     clojure
     curl
     docker-compose
+    elixir
     gh
     httpie
     jdk
