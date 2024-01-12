@@ -12,7 +12,7 @@ in
     enableCompletion = true;
     shellAliases = {
       k = "kubectl";
-      ls = "exa";
+      ls = "eza";
       anix = "/home/archie/.dotfiles/apply-arch.sh";
       test-sway = "/home/archie/.dotfiles/scripts/sway-test.sh";
       mnix = "/Users/ssanchez/.dotfiles/apply-mac.sh";

@@ -2,6 +2,7 @@
   description = "System config";
 
   inputs = {
+    unstable.url = "nixpkgs/nixos-unstable";
     stable.url = "nixpkgs/nixos-23.05";
 
     darwin.url = "github:lnl7/nix-darwin/master";
@@ -16,7 +17,7 @@
     };
   };
 
-  outputs = inputs@{ astronvim, darwin, home-manager, stable, ... }:
+  outputs = inputs@{ astronvim, darwin, home-manager, stable, unstable, ... }:
     let
       linuxSystem = "x86_64-linux";
       macSystem = "aarch64-darwin";
@@ -26,7 +27,7 @@
           config.allowUnfree = true;
         };
       };
-      pkgs = system: import stable {
+      pkgs = system: import unstable {
         inherit system;
         overlays = [ (overlay-stable system) ];
         config = { allowUnfree = true; };

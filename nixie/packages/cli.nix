@@ -27,7 +27,7 @@ in
     cowsay
     delta
     duf
-    exa
+    eza
     fd
     feh
     fortune
@@ -61,7 +61,7 @@ in
     clojure
     curl
     docker-compose
-    elixir
+    elixir_1_16
     gh
     httpie
     jdk
