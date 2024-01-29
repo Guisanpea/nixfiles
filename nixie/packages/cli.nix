@@ -39,6 +39,7 @@ in
     gping
     htop
     imagemagick
+    jq
     lazygit
     navi
     neovim
