@@ -67,8 +67,9 @@ in
     httpie
     jdk
     kubectl
+    kubectx
     mysql
-    nixfmt
+    nixfmt-rfc-style
     nodePackages.npm
     nodejs
     python3
