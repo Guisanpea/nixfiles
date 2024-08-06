@@ -3,7 +3,7 @@
 with pkgs;
 let
   my-php = php81.buildEnv {
-    extensions = ({ enabled, all }: enabled ++ [ all.dom all.rdkafka all.xdebug ]);
+    extensions = ({ enabled, all }: enabled ++ [ all.ssh2 all.tidy all.dom all.rdkafka all.xdebug ]);
     extraConfig = ''
       memory_limit = 8G
       max_execution_time = 600
@@ -20,6 +20,7 @@ in
 {
   home.packages = with pkgs; [
     # CLI
+    babashka
     bat
     bottom
     broot
@@ -49,6 +50,7 @@ in
     nixpkgs-fmt
     neofetch
     pv
+    redis
     ripgrep
     tldr
     tmux
@@ -59,6 +61,7 @@ in
     zip
 
     # DEVELOPMENT
+    bun
     clojure
     curl
     docker-compose
@@ -68,6 +71,7 @@ in
     jdk
     kubectl
     kubectx
+    leiningen
     mysql
     nixfmt-rfc-style
     nodePackages.npm
