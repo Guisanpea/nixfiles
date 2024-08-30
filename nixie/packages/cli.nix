@@ -3,7 +3,7 @@
 with pkgs;
 let
   my-php = php.buildEnv {
-    extensions = ({ enabled, all }: enabled ++ [ all.dom all.rdkafka all.xdebug ]);
+    extensions = ({ enabled, all }: enabled ++ [ all.ssh2 all.tidy all.dom all.rdkafka all.xdebug ]);
     extraConfig = ''
       memory_limit = 8G
       max_execution_time = 600
@@ -20,6 +20,7 @@ in
 {
   home.packages = with pkgs; [
     # CLI
+    babashka
     bat
     bottom
     broot
@@ -41,6 +42,7 @@ in
     gping
     htop
     imagemagick
+    jq
     lazygit
     leiningen
     navi
@@ -52,6 +54,7 @@ in
     neofetch
     or-tools
     pv
+    redis
     ripgrep
     sbt
     tldr
@@ -63,6 +66,7 @@ in
     zip
 
     # DEVELOPMENT
+    bun
     clojure
     curl
     docker-compose
@@ -71,8 +75,10 @@ in
     httpie
     jdk
     kubectl
+    kubectx
+    leiningen
     mysql
-    nixfmt
+    nixfmt-rfc-style
     nodePackages.npm
     nodejs
     python3

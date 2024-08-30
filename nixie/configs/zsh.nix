@@ -2,7 +2,7 @@
 
 
 let
-  dotfiles = ../../.config;
+  dotfiles = ../../dotconfig;
   home = builtins.getEnv "HOME";
 in
 {
@@ -28,6 +28,9 @@ in
       export PATH=$PATH:~/.local/npm/bin:~/.rd/bin;
       export MOZ_ENABLE_WAYLAND=1
       eval "$(direnv hook zsh)"
+    '';
+    envExtra = ''
+      export PATH="/opt/homebrew/bin:$PATH"
     '';
     # https://github.com/NixOS/nixpkgs/issues/27587
     plugins = [

@@ -1,7 +1,7 @@
 { astronvim, config, pkgs, ... }:
 
 let
-  dotfiles = ./.config;
+  dotfiles = ./dotconfig;
   homeManagerSessionVars = "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh";
 in 
 {
