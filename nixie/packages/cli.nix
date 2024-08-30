@@ -2,7 +2,7 @@
 
 with pkgs;
 let
-  my-php = php81.buildEnv {
+  my-php = php.buildEnv {
     extensions = ({ enabled, all }: enabled ++ [ all.dom all.rdkafka all.xdebug ]);
     extraConfig = ''
       memory_limit = 8G
@@ -24,8 +24,10 @@ in
     bottom
     broot
     cachix
+    cloc
     cowsay
-    delta
+    devenv
+    direnv
     duf
     eza
     fd
@@ -40,6 +42,7 @@ in
     htop
     imagemagick
     lazygit
+    leiningen
     navi
     neovim
     nil
@@ -47,8 +50,10 @@ in
     nix-prefetch-git
     nixpkgs-fmt
     neofetch
+    or-tools
     pv
     ripgrep
+    sbt
     tldr
     tmux
     tree

@@ -2,6 +2,7 @@
 
 let
   dotfiles = ./.config;
+  homeManagerSessionVars = "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh";
 in 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -58,6 +59,7 @@ in
   # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
     MOZ_ENABLE_WAYLAND = 1;
+    ELECTRON_OZONE_PLATFORM_HINT = "wayland";
   };
 
   # Let Home Manager install and manage itself.
@@ -65,6 +67,7 @@ in
 
   xdg.configFile."waybar".source = "${dotfiles}/waybar";
   xdg.configFile."sway/config".source = "${dotfiles}/sway/config.config";
+  xdg.configFile."hypr".source = "${dotfiles}/hypr";
 
   xdg.configFile."nvim".source = "${astronvim}";
 

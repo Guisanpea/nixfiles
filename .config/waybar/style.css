@@ -12,71 +12,77 @@ window#waybar {
 }
 
 #workspaces {
-	background-color: #24283b;
-	margin: 5px;
-	margin-left: 10px;
-	border-radius: 5px;
+    background-color: #24283b;
+    margin: 5px;
+    margin-left: 10px;
+    border-radius: 5px;
 }
+
 #workspaces button {
     padding: 5px 10px;
     color: #c0caf5;
 }
 
-#workspaces button.visible.focused {
+#workspaces button.active {
     color: #24283b;
     background-color: #88c0d0;
     border-radius: 5px;
 }
 
-#workspaces button.visible {
+#workspaces button:hover {
+    background-color: #7dcfff;
     color: #24283b;
-    background-color: #7aa2f7;
     border-radius: 5px;
 }
 
-#workspaces button:hover {
-	background-color: #7dcfff;
-	color: #24283b;
-	border-radius: 5px;
-}
-
-#mpd, #custom-date, #clock, #battery, #pulseaudio, #network, #cpu, #memory {
-	background-color: #24283b;
-	padding: 5px 10px;
-	margin: 5px 0px;
+#custom-date,
+#clock,
+#battery,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#backlight,
+#custom-weather,
+#custom-notifications,
+#custom-power {
+    background-color: #24283b;
+    padding: 5px 5px;
+    margin: 5px 0px;
 }
 
 #custom-spotify {
-	color: #000000;
-	background-color: #59cb81;
-	border-radius: 5px;
-	padding: 5px 10px;
-	margin: 5px 0px;
+    color: #000000;
+    background-color: #59cb81;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 5px 0px;
 }
 
 #custom-date {
-	color: #7dcfff;
+    color: #7dcfff;
 }
 
 #tray {
-	color: #24283b;
-	background-color: #d8dee9;
-	border-radius: 5px;
-	margin-right: 10px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	margin-left: 0px;
-	padding: 5px 10px;
+    color: #24283b;
+    background-color: #d8dee9;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 0px;
+    padding: 5px 10px;
 }
 
-#clock {
+#custom-notifications {
     color: #b48ead;
     border-radius: 0px 5px 5px 0px;
     margin-right: 10px;
 }
 
-#cpu, #memory {
-	color: #c49ea0
+#cpu,
+#memory {
+    color: #c49ea0;
 }
 
 #battery {
@@ -90,14 +96,27 @@ window#waybar {
 #battery.warning:not(.charging) {
     background-color: #f7768e;
     color: #24283b;
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 5px;
 }
 
 #network {
-	color: #f7768e;
-	border-radius: 5px 0px 0px 5px;
+    color: #f7768e;
+    border-radius: 5px 0px 0px 5px;
 }
 
 #pulseaudio {
-	color: #e0af68;
+    color: #e0af68;
 }
+
+#backlight {
+    color: #a6e3a1;
+}
+
+#custom-weather {
+    color: #89dceb;
+}
+
+#custom-power {
+    color: #f38ba8;
+}
+

@@ -19,6 +19,7 @@ in
       unix = "/home/nixie/.dotfiles/update.sh";
       snix = "/home/nixie/.dotfiles/apply-system.sh";
       csf = "./vendor/bin/php-cs-fixer fix";
+      asdf = "true";
 #      code = "code --enable-features=UseOzonePlatform --ozone-platform=wayland --ozone-platform-hint=auto";
       doom = "~/.config/emacs/bin/doom";
       archpath = "export PATH=$(echo $PATH | tr ':' '\n' | grep -v '/.nix-profile' | grep -v '/nix/var/nix/profiles' | tr '\n' ':' | sed 's/:$//')";
@@ -26,6 +27,7 @@ in
     initExtra = ''
       export PATH=$PATH:~/.local/npm/bin:~/.rd/bin;
       export MOZ_ENABLE_WAYLAND=1
+      eval "$(direnv hook zsh)"
     '';
     # https://github.com/NixOS/nixpkgs/issues/27587
     plugins = [
