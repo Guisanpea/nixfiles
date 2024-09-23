@@ -70,7 +70,7 @@ in
     clojure
     curl
     docker-compose
-    elixir_1_16
+    beam.packages.erlang_27.elixir_1_16
     gh
     httpie
     jdk

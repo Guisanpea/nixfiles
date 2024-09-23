@@ -28,14 +28,11 @@
   # https://github.com/nix-community/home-manager/issues/423
   programs.nix-index.enable = true;
 
-  # Fonts
-  fonts.fontDir.enable = true;
-  fonts.fonts = with pkgs; [
-    recursive
-    (nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" "FiraCode" ]; })
-  ];
-
   # Keyboard
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToEscape = true;
+
+  ids.gids.nixbld = 30000;
+
+  system.stateVersion = 5;
 }
