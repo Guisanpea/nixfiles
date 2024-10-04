@@ -24,14 +24,7 @@
   # `home-manager` currently has issues adding them to `~/Applications`
   # Issue: https://github.com/nix-community/home-manager/issues/1341
   environment.systemPackages = with pkgs; [
-  kitty
-  terminal-notifier
-  git
-    gnumake
-    gcc
-    openssl
-    zlib
-    snappy
+  beam.packages.erlang_26.elixir_1_16
   ];
 
   # https://github.com/nix-community/home-manager/issues/423

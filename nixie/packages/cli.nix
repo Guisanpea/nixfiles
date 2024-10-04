@@ -2,7 +2,7 @@
 
 with pkgs;
 let
-  my-php = php.buildEnv {
+  my-php = php81.buildEnv {
     extensions = ({ enabled, all }: enabled ++ [ all.ssh2 all.tidy all.dom all.rdkafka all.xdebug ]);
     extraConfig = ''
       memory_limit = 8G
@@ -27,7 +27,6 @@ in
     cachix
     cloc
     cowsay
-    devenv
     direnv
     duf
     eza
@@ -70,7 +69,6 @@ in
     clojure
     curl
     docker-compose
-    beam.packages.erlang_27.elixir_1_16
     gh
     httpie
     jdk
