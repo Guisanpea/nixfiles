@@ -8,7 +8,8 @@ let
       memory_limit = 8G
       max_execution_time = 600
       [xdebug]
-      xdebug.mode = debug
+      xdebug.mode = profile
+      xdebug.profiler_output_name = cachegrind.out.%p
       xdebug.start_with_request = trigger
       xdebug.discover_client_host = 1
       xdebug.client_host=127.0.0.1
