@@ -76,7 +76,7 @@ in
     kubectl
     kubectx
     leiningen
-    mysql
+    mariadb
     nixfmt-rfc-style
     nodePackages.npm
     nodejs
