@@ -80,12 +80,9 @@ in
     nixfmt-rfc-style
     nodePackages.npm
     nodejs
-    python3
     yarn
 
     # PHP
-    my-php
-    my-php.packages.composer
     symfony-cli
   ];
 }

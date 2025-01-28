@@ -2,7 +2,6 @@
 
 let
   dotfiles = ./dotconfig;
-  homeManagerSessionVars = "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh";
 in 
 {
   # Home Manager needs a bit of information about you and the paths it should

@@ -1,6 +1,0 @@
-alias susp='systemctl suspend'
-alias xread='xcalib -red 1.7 1 75 -green 1.7 1 62 -blue 1.7 1 35 -alter'
-alias xclear='xcalib -clear'
-alias footer='amm ~/scripts/email-footer.sc "Santiago Sánchez Fernández" santiago-sanchez-fernandez guisanpea'
-alias noblack='xset s off; xset -dpms'
-alias pwc='pwgen 14 1 | xclip -sel clip'
