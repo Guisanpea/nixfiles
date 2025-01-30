@@ -59,7 +59,15 @@
         pkgs = pkgs linuxSystem;
         extraSpecialArgs = specialArgs;
         modules = [ 
-          ./linux/home.nix
+          ./linux/home.nix 
+        ];
+      };
+
+      homeConfigurations."ssanchez" = home-manager.lib.homeManagerConfiguration {
+        pkgs = pkgs macSystem;
+        extraSpecialArgs = specialArgs;
+        modules = [
+          ./darwin/home.nix
         ];
       };
     };

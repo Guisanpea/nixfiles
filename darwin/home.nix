@@ -1,15 +1,16 @@
+# macOS-specific home configuration
 { lib, config, pkgs, ... }:
 
 {
   imports = [
-    ./common-home.nix 
-    ./configs/common.nix
+    ../common/home.nix
+    ./packages.nix
   ];
-  home.packages = with pkgs; [
-    m-cli
-  ];
-  home.sessionPath = [
-    "$HOME/.rd/bin"
-  ];
-   home.homeDirectory = lib.mkForce "/Users/ssanchez";
+
+  home = {
+    sessionPath = [
+      "$HOME/.rd/bin"
+    ];
+    homeDirectory = lib.mkForce "/Users/ssanchez";
+  };
 }
