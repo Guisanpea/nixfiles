@@ -37,22 +37,7 @@
       };
     in
     {
-
       formatter.x86_64-linux = stable.legacyPackages.x86_64-linux.nixpkgs-fmt;
-      # Linux config
-      nixosConfigurations.nixos = stable.lib.nixosSystem {
-        system = linuxSystem;
-        pkgs = pkgs linuxSystem;
-        modules = [
-          ./system/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.nixie = import ./nixie/linux-home.nix { inherit astronvim; };
-          }
-        ];
-      };
       # Mac config
       darwinConfigurations = {
         ssanchez = darwin.lib.darwinSystem {
