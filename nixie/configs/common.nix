@@ -15,10 +15,10 @@
       userName = "Santi";
       userEmail = "guisanpea" + "@" + "gmail.com";
     };
-    starship = {
-      enable = true;
-      enableZshIntegration = true;
-    };
+    # starship = {
+    #   enable = true;
+    #   enableZshIntegration = true;
+    # };
   };
 }
 

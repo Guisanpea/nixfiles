@@ -4,6 +4,6 @@ cd ~/.dotfiles
 nix build ~/.dotfiles#homeConfigurations.archie.activationPackage --impure
 ~/.dotfiles/result/activate
 cd -
-swaymsg reload
+hyprctl reload
 echo 'Press enter to close'
 read

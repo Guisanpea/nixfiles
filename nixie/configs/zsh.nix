@@ -2,7 +2,8 @@
 
 
 {
-  programs.zsh = {
+  programs = {
+    zsh = {
     enable = true;
     enableCompletion = true;
     shellAliases = {
@@ -19,6 +20,10 @@
       doom = "~/.config/emacs/bin/doom";
       archpath = "export PATH=$(echo $PATH | tr ':' '\n' | grep -v '/.nix-profile' | grep -v '/nix/var/nix/profiles' | tr '\n' ':' | sed 's/:$//')";
     };
+    initExtra = ''
+      bindkey "^[[1;5C" forward-word # Ctrl + right
+      bindkey "^[[1;5D" backward-word # Ctrl + left
+    '';
     plugins = [
       {
         name = pkgs.zsh-autosuggestions.pname;
@@ -32,5 +37,8 @@
       }
     ];
   };
+    starship.enable = true;
+    starship.enableZshIntegration = true;
+    };
 }
 
