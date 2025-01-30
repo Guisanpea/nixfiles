@@ -1,1 +1,0 @@
-/home/archie/.fzf/shell/key-bindings.fish
