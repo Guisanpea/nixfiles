@@ -1,13 +1,24 @@
-# Git configuration that is common across all systems
 { config, pkgs, lib, ... }:
 
 {
-  programs.git = {
-    enable = true;
-    extraConfig = {
-      safe.directory = "/home/nixie/.dotfiles";
+  imports = [
+    ./zsh.nix
+  ];
+
+  programs = {
+    command-not-found.enable = true;
+    git = {
+      enable = true;
+      extraConfig = {
+        safe.directory = "/home/nixie/.dotfiles";
+      };
+      userName = "Santi";
+      userEmail = "guisanpea" + "@" + "gmail.com";
     };
-    userName = "Santi";
-    userEmail = "guisanpea" + "@" + "gmail.com";
+    # starship = {
+    #   enable = true;
+    #   enableZshIntegration = true;
+    # };
   };
 }
+

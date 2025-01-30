@@ -1,4 +1,3 @@
-# Linux-specific home configuration
 { config, pkgs, ... }:
 
 let
@@ -6,19 +5,16 @@ let
 in
 {
   imports = [
-    ../common/home.nix
-    ./packages.nix
+    ./packages/linux.nix 
+    ./configs/linux.nix
+    ./common-home.nix 
   ];
+  home.username = "nixie";
+  home.homeDirectory = "/home/nixie";
 
-  home = {
-    username = "nixie";
-    homeDirectory = "/home/nixie";
-  };
+  xdg.configFile."alacritty".source = "${dotfiles}/alacritty";
+  xdg.configFile."i3".source = "${dotfiles}/i3";
+  xdg.configFile."waybar".source = "${dotfiles}/waybar";
 
-  # Linux-specific dotfiles
-  xdg.configFile = {
-    "alacritty".source = "${dotfiles}/alacritty";
-    "i3".source = "${dotfiles}/i3";
-    "waybar".source = "${dotfiles}/waybar";
-  };
+  home.stateVersion = "20.09";
 }
