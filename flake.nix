@@ -12,7 +12,7 @@
     astronvim.flake = false;
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "stable";
     };
   };
@@ -37,22 +37,7 @@
       };
     in
     {
-
       formatter.x86_64-linux = stable.legacyPackages.x86_64-linux.nixpkgs-fmt;
-      # Linux config
-      nixosConfigurations.nixos = stable.lib.nixosSystem {
-        system = linuxSystem;
-        pkgs = pkgs linuxSystem;
-        modules = [
-          ./system/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.nixie = import ./nixie/linux-home.nix { inherit astronvim; };
-          }
-        ];
-      };
       # Mac config
       darwinConfigurations = {
         ssanchez = darwin.lib.darwinSystem {
@@ -72,14 +57,18 @@
       # Arch config
       homeConfigurations."archie" = home-manager.lib.homeManagerConfiguration {
         pkgs = pkgs linuxSystem;
-
         extraSpecialArgs = specialArgs;
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [ ./archie.nix ];
+        modules = [ 
+          ./linux/home.nix 
+        ];
+      };
 
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
+      homeConfigurations."ssanchez" = home-manager.lib.homeManagerConfiguration {
+        pkgs = pkgs macSystem;
+        extraSpecialArgs = specialArgs;
+        modules = [
+          ./darwin/home.nix
+        ];
       };
     };
 }

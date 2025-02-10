@@ -22,6 +22,7 @@ in
 {
   home.packages = with pkgs; [
     # CLI
+    aichat
     babashka
     bat
     bottom
@@ -81,12 +82,9 @@ in
     nixfmt-rfc-style
     nodePackages.npm
     nodejs
-    python3
     yarn
 
     # PHP
-    my-php
-    my-php.packages.composer
     symfony-cli
   ];
 }
