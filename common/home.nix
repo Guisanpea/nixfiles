@@ -11,6 +11,12 @@ in
     ./programs/php.nix
   ];
 
+  # Enable PHP configuration
+  home-manager = {
+    extraSpecialArgs = { inherit pkgs; };
+    users.ssanchez.programs.php.enable = true;
+  };
+
   # Common dotfile configurations
   xdg.configFile = {
     "tmux".source = "${dotfiles}/tmux";
