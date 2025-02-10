@@ -8,9 +8,6 @@
   ];
 
   home = {
-    sessionPath = [
-      "$HOME/.rd/bin"
-    ];
     homeDirectory = lib.mkForce "/Users/ssanchez";
   };
 }

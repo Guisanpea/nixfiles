@@ -49,7 +49,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.ssanchez = import ./nixie/mac-home.nix;
+              home-manager.users.ssanchez = import ./darwin/home.nix;
             }
           ];
         };
