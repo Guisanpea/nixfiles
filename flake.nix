@@ -50,7 +50,7 @@
       };
     in
     {
-      formatter.x86_64-linux = self.inputs.stable.legacyPackages.x86_64-linux.nixpkgs-fmt;
+      formatter.x86_64-linux = stable.legacyPackages.x86_64-linux.nixpkgs-fmt;
       # Mac config
       darwinConfigurations = {
         ssanchez = darwin.lib.darwinSystem {
