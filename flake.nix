@@ -25,7 +25,7 @@
     };
   };
 
-  outputs = inputs@{ astronvim, darwin, home-manager, nixpkgs-stable, nixpkgs-unstable, ... }:
+  outputs = inputs@{ astronvim, darwin, home-manager, stable, unstable, ... }:
     let
       linuxSystem = "x86_64-linux";
       macSystem = "aarch64-darwin";
@@ -33,15 +33,15 @@
       # Overlay for stable packages
       overlays = [
         (final: prev: {
-          stable = import nixpkgs-stable {
-            system = prev.system;
+          stable = import stable {
+            inherit (prev) system;
             config.allowUnfree = true;
           };
         })
       ];
 
       # Unified package set constructor
-      mkPkgs = system: import nixpkgs-unstable {
+      mkPkgs = system: import unstable {
         inherit system overlays;
         config.allowUnfree = true;
       };
@@ -50,12 +50,12 @@
       };
     in
     {
-      formatter.x86_64-linux = stable.legacyPackages.x86_64-linux.nixpkgs-fmt;
+      formatter.x86_64-linux = self.inputs.stable.legacyPackages.x86_64-linux.nixpkgs-fmt;
       # Mac config
       darwinConfigurations = {
         ssanchez = darwin.lib.darwinSystem {
           system = macSystem;
-          pkgs = pkgs macSystem;
+          pkgs = mkPkgs macSystem;
           modules = [
             ./mac-system.nix
             home-manager.darwinModules.home-manager
@@ -69,7 +69,7 @@
       };
       # Arch config
       homeConfigurations."archie" = home-manager.lib.homeManagerConfiguration {
-        pkgs = pkgs linuxSystem;
+        pkgs = mkPkgs linuxSystem;
         extraSpecialArgs = specialArgs;
         modules = [ 
           ./linux/home.nix 
