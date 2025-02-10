@@ -1,5 +1,13 @@
 {
-  description = "System config";
+  description = "Sanchez's Nix Systems Configuration";
+  # Note which Nix version is required
+  nixConfig.extra-experimental-features = "nix-command flakes";
+  nixConfig.extra-substituters = [
+    "https://nix-community.cachix.org"
+  ];
+  nixConfig.extra-trusted-public-keys = [
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  ];
 
   inputs = {
     unstable.url = "nixpkgs/nixos-unstable";
@@ -17,20 +25,25 @@
     };
   };
 
-  outputs = inputs@{ astronvim, darwin, home-manager, stable, unstable, ... }:
+  outputs = inputs@{ astronvim, darwin, home-manager, nixpkgs-stable, nixpkgs-unstable, ... }:
     let
       linuxSystem = "x86_64-linux";
       macSystem = "aarch64-darwin";
-      overlay-stable = system: final: prev: {
-        stable = import stable {
-          inherit system;
-          config.allowUnfree = true;
-        };
-      };
-      pkgs = system: import unstable {
-        inherit system;
-        overlays = [ (overlay-stable system) ];
-        config = { allowUnfree = true; };
+      
+      # Overlay for stable packages
+      overlays = [
+        (final: prev: {
+          stable = import nixpkgs-stable {
+            system = prev.system;
+            config.allowUnfree = true;
+          };
+        })
+      ];
+
+      # Unified package set constructor
+      mkPkgs = system: import nixpkgs-unstable {
+        inherit system overlays;
+        config.allowUnfree = true;
       };
       specialArgs = {
         inherit astronvim;

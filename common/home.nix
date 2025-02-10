@@ -8,6 +8,7 @@ in
   imports = [
     ./packages.nix
     ./programs/git.nix
+    ./programs/php.nix
   ];
 
   # Common dotfile configurations
