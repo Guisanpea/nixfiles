@@ -11,8 +11,8 @@ in
   ];
 
   home = {
-    username = "nixie";
-    homeDirectory = "/home/nixie";
+    username = "archie";
+    homeDirectory = "/home/archie";
   };
 
   # Linux-specific dotfiles

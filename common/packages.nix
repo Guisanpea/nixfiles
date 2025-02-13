@@ -12,7 +12,6 @@ with pkgs;
     cachix
     cloc
     cowsay
-    direnv
     duf
     eza
     fd

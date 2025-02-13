@@ -9,7 +9,13 @@ in
     ./packages.nix
     ./programs/git.nix
     ./programs/php.nix
+    ./programs/zsh.nix
   ];
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 
   # Common dotfile configurations
   xdg.configFile = {
