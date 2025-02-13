@@ -9,11 +9,11 @@
     shellAliases = {
       k = "kubectl";
       ls = "eza";
-      anix = "/home/archie/.dotfiles/apply-arch.sh";
-      test-sway = "/home/archie/.dotfiles/scripts/sway-test.sh";
-      mnix = "/Users/ssanchez/.dotfiles/apply-mac.sh";
-      unix = "/home/nixie/.dotfiles/update.sh";
-      snix = "/home/nixie/.dotfiles/apply-system.sh";
+      anix = "${config.home.homeDirectory}/.dotfiles/apply-arch.sh";
+      test-sway = "${config.home.homeDirectory}/.dotfiles/scripts/sway-test.sh";
+      mnix = "${config.home.homeDirectory}/.dotfiles/apply-mac.sh";
+      unix = "${config.home.homeDirectory}/.dotfiles/update.sh";
+      snix = "${config.home.homeDirectory}/.dotfiles/apply-system.sh";
       csf = "./vendor/bin/php-cs-fixer fix";
       asdf = "true";
 #      code = "code --enable-features=UseOzonePlatform --ozone-platform=wayland --ozone-platform-hint=auto";

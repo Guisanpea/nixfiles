@@ -1,9 +1,7 @@
 { pkgs, ... }:
 
-
-with pkgs;
 {
-  home.packages = [
+  home.packages = (import ../common/packages.nix { inherit pkgs; }).home.packages ++ [
     # AUDIO
     pavucontrol
     playerctl

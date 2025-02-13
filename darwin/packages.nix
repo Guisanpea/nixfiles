@@ -1,8 +1,7 @@
-# macOS-specific packages
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
+  home.packages = (import ../common/packages.nix { inherit pkgs; }).home.packages ++ (with pkgs; [
     m-cli
-  ];
+  ]);
 }
