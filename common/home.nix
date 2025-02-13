@@ -7,7 +7,7 @@ in
 {
   imports = [
     ./packages.nix
-    (import ./programs { inherit config; })
+    (import ./programs { inherit config pkgs; })
   ];
 
   programs.direnv = {
