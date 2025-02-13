@@ -11,7 +11,7 @@
 
   inputs = {
     unstable.url = "nixpkgs/nixos-unstable";
-    stable.url = "nixpkgs/nixos-23.05";
+    stable.url = "nixpkgs/nixos-24.11";
 
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "stable";

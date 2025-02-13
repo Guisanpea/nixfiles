@@ -21,6 +21,7 @@ in
   xdg.configFile = {
     "tmux".source = "${dotfiles}/tmux";
     "doom".source = "${dotfiles}/doom.d";
+    "hypr".source = "${dotfiles}/hypr";
   };
   
   home.file.".npmrc".source = "${dotfiles}/npmrc";

@@ -19,5 +19,5 @@ let
     '';
   };
 in {
-  home.packages = [myphp81];
+  home.packages = [];
 }
