@@ -10,6 +10,10 @@ in
     ./packages.nix
   ];
 
+  programs.php = {
+    phpPackage = pkgs.php81;
+  };
+
   home = {
     username = "archie";
     homeDirectory = "/home/archie";

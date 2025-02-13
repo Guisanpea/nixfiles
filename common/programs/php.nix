@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, phpVersion ? pkgs.php81, ... }:
 
 with pkgs;
 let 
-  myphp81 = php81.buildEnv {
+  myphp = phpVersion.buildEnv {
     extensions = ({ enabled, all }: enabled ++ [ all.ssh2 all.tidy all.dom all.rdkafka all.xdebug ]);
     extraConfig = ''
       memory_limit = 8G
