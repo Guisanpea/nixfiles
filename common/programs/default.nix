@@ -1,5 +1,7 @@
-[
-  ./git.nix
-  ./php.nix
-  ./zsh.nix
-]
+{ config, pkgs, ... }: {
+  imports = [
+    ./git.nix
+    ./php.nix
+    ./zsh.nix
+  ];
+}
