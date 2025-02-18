@@ -20,6 +20,7 @@ in
     "tmux".source = "${dotfiles}/tmux";
     "doom".source = "${dotfiles}/doom.d";
     "hypr".source = "${dotfiles}/hypr";
+    "wezterm".source = "${dotfiles}/wezterm";
     "nvim_init" = {
       source = "${dotfiles}/nvim";
       recursive = true;
