@@ -5,7 +5,6 @@
   nix.settings.trusted-public-keys =
     [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
   nix.settings.trusted-users = [ "@admin" ];
-  nix.configureBuildUsers = true;
 
   nix.extraOptions = ''
     auto-optimise-store = true
@@ -16,16 +15,6 @@
 
   # Create /etc/bashrc that loads the nix-darwin environment.
   programs.zsh.enable = true;
-
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
-
-  # Apps
-  # `home-manager` currently has issues adding them to `~/Applications`
-  # Issue: https://github.com/nix-community/home-manager/issues/1341
-  environment.systemPackages = with pkgs; [
-    beam.packages.erlang_26.elixir_1_16
-  ];
 
   # https://github.com/nix-community/home-manager/issues/423
   programs.nix-index.enable = true;
