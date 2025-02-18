@@ -24,7 +24,7 @@
   # `home-manager` currently has issues adding them to `~/Applications`
   # Issue: https://github.com/nix-community/home-manager/issues/1341
   environment.systemPackages = with pkgs; [
-  beam.packages.erlang_26.elixir_1_16
+    beam.packages.erlang_26.elixir_1_16
   ];
 
   # https://github.com/nix-community/home-manager/issues/423

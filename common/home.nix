@@ -21,7 +21,7 @@ in
     "doom".source = "${dotfiles}/doom.d";
     "hypr".source = "${dotfiles}/hypr";
   };
-  
+
   home.file.".npmrc".source = "${dotfiles}/npmrc";
 
   # This value determines the Home Manager release that your

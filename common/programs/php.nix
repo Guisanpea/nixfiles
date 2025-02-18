@@ -1,7 +1,7 @@
 { pkgs, phpVersion ? pkgs.php81, ... }:
 
 with pkgs;
-let 
+let
   myphp = phpVersion.buildEnv {
     extensions = ({ enabled, all }: enabled ++ [ all.ssh2 all.tidy all.dom all.rdkafka all.xdebug ]);
     extraConfig = ''
@@ -18,6 +18,7 @@ let
       xdebug.log_level=3
     '';
   };
-in {
-  home.packages = [];
+in
+{
+  home.packages = [ ];
 }

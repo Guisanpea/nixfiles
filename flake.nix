@@ -29,7 +29,7 @@
     let
       linuxSystem = "x86_64-linux";
       macSystem = "aarch64-darwin";
-      
+
       # Overlay for stable packages
       overlays = [
         (final: prev: {
@@ -71,8 +71,8 @@
       homeConfigurations."archie" = home-manager.lib.homeManagerConfiguration {
         pkgs = mkPkgs linuxSystem;
         extraSpecialArgs = specialArgs;
-        modules = [ 
-          ./linux/home.nix 
+        modules = [
+          ./linux/home.nix
         ];
       };
 
