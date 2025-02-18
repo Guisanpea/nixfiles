@@ -39,6 +39,7 @@ with pkgs;
     babashka
     bun
     clojure
+    beam26Packages.elixir_1_17
     jdk
     leiningen
     nodePackages.npm
