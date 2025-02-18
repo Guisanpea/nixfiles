@@ -20,7 +20,22 @@ in
     "tmux".source = "${dotfiles}/tmux";
     "doom".source = "${dotfiles}/doom.d";
     "hypr".source = "${dotfiles}/hypr";
-    "nvim".source = "${dotfiles}/nvim";
+    "nvim_init" = {
+      source = "${dotfiles}/nvim";
+      recursive = true;
+      # This is a hack to make the nvim directory writable
+      onChange = ''
+        rm -rf ${config.xdg.configHome}/nvim
+        mkdir -p ${config.xdg.configHome}/nvim
+        cd ${config.xdg.configHome}/nvim_init
+        for file in $(find . -type f -o -type l); do
+          target_dir=$(dirname "${config.xdg.configHome}/nvim/$file")
+          mkdir -p "$target_dir"
+          cp $(readlink -f "$file") "${config.xdg.configHome}/nvim/$file"
+        done
+        chmod -R u+w ${config.xdg.configHome}/nvim
+      '';
+    };
   };
 
   home.file.".npmrc".source = "${dotfiles}/npmrc";
