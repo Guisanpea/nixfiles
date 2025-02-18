@@ -3,69 +3,78 @@
 with pkgs;
 {
   home.packages = with pkgs; [
-    # CLI
-    aichat
-    babashka
-    bat
+    # SYSTEM MONITORING & PERFORMANCE
     bottom
-    broot
-    cachix
-    cloc
-    cowsay
     duf
+    gdu
+    gping
+    htop
+    neofetch
+
+    # FILE MANAGEMENT & SEARCH
+    bat
+    broot
     eza
     fd
     feh
-    fortune
-    fzf
-    gdu
-    git
-    git-crypt
-    gnupg
-    gping
-    htop
-    imagemagick
-    jq
-    lazygit
-    leiningen
-    navi
-    neovim
-    nil
-    nix-prefetch-github
-    nix-prefetch-git
-    nixpkgs-fmt
-    neofetch
-    or-tools
-    pv
-    redis
     ripgrep
-    sbt
-    tldr
-    tmux
     tree
     unrar
     unzip
-    wireguard-tools
     zip
 
-    # DEVELOPMENT
+    # VERSION CONTROL & DEVELOPMENT TOOLS
+    cachix
+    git
+    git-crypt
+    gh
+    lazygit
+    nix-prefetch-github
+    nix-prefetch-git
+    nixpkgs-fmt
+    nixfmt-rfc-style
+    nil
+
+    # PROGRAMMING LANGUAGES & RUNTIMES
+    babashka
     bun
     clojure
-    curl
-    docker-compose
-    gh
-    httpie
     jdk
-    kubectl
-    kubectx
     leiningen
-    mariadb
-    nixfmt-rfc-style
     nodePackages.npm
     nodejs
+    sbt
     yarn
 
-    # PHP
+    # DATABASES & SERVICES
+    mariadb
+    redis
+    docker-compose
+
+    # NETWORK & SECURITY
+    curl
+    gnupg
+    httpie
+    kubectl
+    kubectx
+    wireguard-tools
     symfony-cli
+
+    # TERMINAL UTILITIES
+    cowsay
+    fortune
+    fzf
+    jq
+    navi
+    neovim
+    pv
+    tldr
+    tmux
+
+    # IMAGE PROCESSING
+    imagemagick
+
+    # LLM
+    aichat
   ];
 }
