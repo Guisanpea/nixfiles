@@ -25,6 +25,7 @@ with pkgs;
 
     # VERSION CONTROL & DEVELOPMENT TOOLS
     cachix
+    devenv
     git
     git-crypt
     gh
