@@ -20,6 +20,7 @@ in
     "tmux".source = "${dotfiles}/tmux";
     "doom".source = "${dotfiles}/doom.d";
     "hypr".source = "${dotfiles}/hypr";
+    "nvim".source = "${dotfiles}/nvim";
   };
 
   home.file.".npmrc".source = "${dotfiles}/npmrc";
