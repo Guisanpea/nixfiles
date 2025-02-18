@@ -104,11 +104,11 @@ This section contains the contents of the repository's files.
 </file>
 
 <file path="common/programs/php.nix">
-{ pkgs, ... }:
+{ pkgs, phpVersion ? pkgs.php81, ... }:
 
 with pkgs;
-let 
-  myphp81 = php81.buildEnv {
+let
+  myphp = phpVersion.buildEnv {
     extensions = ({ enabled, all }: enabled ++ [ all.ssh2 all.tidy all.dom all.rdkafka all.xdebug ]);
     extraConfig = ''
       memory_limit = 8G
@@ -124,54 +124,59 @@ let
       xdebug.log_level=3
     '';
   };
-in {
-  home.packages = [];
+in
+{
+  home.packages = [ ];
 }
 </file>
 
 <file path="common/programs/zsh.nix">
 { pkgs, config, ... }:
 
-
 {
   programs = {
     zsh = {
-    enable = true;
-    enableCompletion = true;
-    shellAliases = {
-      k = "kubectl";
-      ls = "eza";
-      anix = "${config.home.homeDirectory}/.dotfiles/apply-arch.sh";
-      test-sway = "${config.home.homeDirectory}/.dotfiles/scripts/sway-test.sh";
-      mnix = "${config.home.homeDirectory}/.dotfiles/apply-mac.sh";
-      unix = "${config.home.homeDirectory}/.dotfiles/update.sh";
-      snix = "${config.home.homeDirectory}/.dotfiles/apply-system.sh";
-      csf = "./vendor/bin/php-cs-fixer fix";
-      asdf = "true";
-#      code = "code --enable-features=UseOzonePlatform --ozone-platform=wayland --ozone-platform-hint=auto";
-      doom = "~/.config/emacs/bin/doom";
-      archpath = "export PATH=$(echo $PATH | tr ':' '\n' | grep -v '/.nix-profile' | grep -v '/nix/var/nix/profiles' | tr '\n' ':' | sed 's/:$//')";
+      enable = true;
+      enableCompletion = true;
+      shellAliases = {
+        k = "kubectl";
+        ls = "eza";
+        anix = "${config.home.homeDirectory}/.dotfiles/apply-arch.sh";
+        test-sway = "${config.home.homeDirectory}/.dotfiles/scripts/sway-test.sh";
+        mnix = "${config.home.homeDirectory}/.dotfiles/apply-mac.sh";
+        unix = "${config.home.homeDirectory}/.dotfiles/update.sh";
+        snix = "${config.home.homeDirectory}/.dotfiles/apply-system.sh";
+        csf = "./vendor/bin/php-cs-fixer fix";
+        asdf = "true";
+        #code = "code --enable-features=UseOzonePlatform --ozone-platform=wayland --ozone-platform-hint=auto";
+        doom = "~/.config/emacs/bin/doom";
+        archpath = "export PATH=$(echo $PATH | tr ':' '\n' | grep -v '/.nix-profile' | grep -v '/nix/var/nix/profiles' | tr '\n' ':' | sed 's/:$//')";
+      };
+      initExtra = ''
+        bindkey "^[[1;5C" forward-word # Ctrl + right
+        bindkey "^[[1;5D" backward-word # Ctrl + left
+      '';
+      plugins = [
+        {
+          name = pkgs.zsh-autosuggestions.pname;
+          file = "zsh-autosuggestions.zsh";
+          src = "${pkgs.zsh-autosuggestions}/share/${pkgs.zsh-autosuggestions.pname}";
+        }
+        {
+          name = pkgs.zsh-syntax-highlighting.pname;
+          file = "zsh-syntax-highlighting.zsh";
+          src = "${pkgs.zsh-syntax-highlighting}/share/${pkgs.zsh-syntax-highlighting.pname}";
+        }
+        {
+          name = pkgs.zsh-z.pname;
+          file = "zsh-z.plugin.zsh";
+          src = "${pkgs.zsh-z}/share/zsh-z";
+        }
+      ];
     };
-    initExtra = ''
-      bindkey "^[[1;5C" forward-word # Ctrl + right
-      bindkey "^[[1;5D" backward-word # Ctrl + left
-    '';
-    plugins = [
-      {
-        name = pkgs.zsh-autosuggestions.pname;
-        file = "zsh-autosuggestions.zsh";
-        src = "${pkgs.zsh-autosuggestions}/share/${pkgs.zsh-autosuggestions.pname}";
-      }
-      {
-        name = pkgs.zsh-syntax-highlighting.pname;
-        file = "zsh-syntax-highlighting.zsh";
-        src = "${pkgs.zsh-syntax-highlighting}/share/${pkgs.zsh-syntax-highlighting.pname}";
-      }
-    ];
-  };
     starship.enable = true;
     starship.enableZshIntegration = true;
-    };
+  };
 }
 </file>
 
@@ -185,7 +190,7 @@ in
 {
   imports = [
     ./packages.nix
-    ./programs
+    ./programs/default.nix
   ];
 
   programs.direnv = {
@@ -199,7 +204,7 @@ in
     "doom".source = "${dotfiles}/doom.d";
     "hypr".source = "${dotfiles}/hypr";
   };
-  
+
   home.file.".npmrc".source = "${dotfiles}/npmrc";
 
   # This value determines the Home Manager release that your
@@ -211,73 +216,82 @@ in
 <file path="common/packages.nix">
 { pkgs, ... }:
 
-with pkgs; 
+with pkgs;
 {
   home.packages = with pkgs; [
-    # CLI
-    aichat
-    babashka
-    bat
+    # SYSTEM MONITORING & PERFORMANCE
     bottom
-    broot
-    cachix
-    cloc
-    cowsay
     duf
+    gdu
+    gping
+    htop
+    neofetch
+
+    # FILE MANAGEMENT & SEARCH
+    bat
+    broot
     eza
     fd
     feh
-    fortune
-    fzf
-    gdu
-    git
-    git-crypt
-    gnupg
-    gping
-    htop
-    imagemagick
-    jq
-    lazygit
-    leiningen
-    navi
-    neovim
-    nil
-    nix-prefetch-github
-    nix-prefetch-git
-    nixpkgs-fmt
-    neofetch
-    or-tools
-    pv
-    redis
     ripgrep
-    sbt
-    tldr
-    tmux
     tree
     unrar
     unzip
-    wireguard-tools
     zip
 
-    # DEVELOPMENT
+    # VERSION CONTROL & DEVELOPMENT TOOLS
+    cachix
+    git
+    git-crypt
+    gh
+    lazygit
+    nix-prefetch-github
+    nix-prefetch-git
+    nixpkgs-fmt
+    nixfmt-rfc-style
+    nil
+
+    # PROGRAMMING LANGUAGES & RUNTIMES
+    babashka
     bun
     clojure
-    curl
-    docker-compose
-    gh
-    httpie
     jdk
-    kubectl
-    kubectx
     leiningen
-    mariadb
-    nixfmt-rfc-style
     nodePackages.npm
     nodejs
+    sbt
     yarn
 
-    # PHP
+    # DATABASES & SERVICES
+    mariadb
+    redis
+    docker-compose
+
+    # NETWORK & SECURITY
+    curl
+    gnupg
+    httpie
+    kubectl
+    kubectx
+    wireguard-tools
     symfony-cli
+
+    # TERMINAL UTILITIES
+    cowsay
+    fortune
+    fzf
+    jq
+    navi
+    neovim
+    pv
+    tldr
+    tmux
+
+    # IMAGE PROCESSING
+    imagemagick
+
+    # LLM
+    aichat
   ];
 }
 </file>
@@ -291,6 +305,10 @@ with pkgs;
     ../common/home.nix
     ./packages.nix
   ];
+
+  programs.php = {
+    phpPackage = pkgs.php81;
+  };
 
   home = {
     homeDirectory = lib.mkForce "/Users/ssanchez";
@@ -454,35 +472,75 @@ dotconfig/
 <file path="apply-arch.sh">
 #!/bin/bash
 
+original_dir=$(pwd)
 cd ~/.dotfiles
-nix build ~/.dotfiles#homeConfigurations.archie.activationPackage --impure
-~/.dotfiles/result/activate
-cd -
-hyprctl reload
-echo 'Press enter to close'
-read
+
+# Check for remote changes
+git remote update
+local_commits=$(git rev-parse HEAD)
+remote_commits=$(git rev-parse @{u})
+
+if [ "$local_commits" != "$remote_commits" ]; then
+    echo "⚠️  Remote changes detected - run 'git pull' to integrate them"
+    cd "$original_dir"
+    exit 1
+fi
+
+build_success=0
+nix build ~/.dotfiles#homeConfigurations.archie.activationPackage --impure || build_success=1
+
+if [ $build_success -eq 0 ]; then
+    ~/.dotfiles/result/activate
+    hyprctl reload
+    git add .
+    git commit -a
+    git push
+else
+    echo "❌ Nix build failed"
+fi
+
+cd "$original_dir"
 </file>
 
 <file path="apply-mac.sh">
 #!/usr/bin/env sh
 set -Eeuo pipefail
 
+original_dir=$(pwd)
 cd ~/.dotfiles
-git pull
-nix build .#darwinConfigurations.ssanchez.system --impure -L -v &&
-  ./result/sw/bin/darwin-rebuild switch --flake .#ssanchez --impure -L -v &&
-  git add . &&
-  git commit -a &&
-  git push 
-cd -
+
+# Check for remote changes
+git remote update
+local_commits=$(git rev-parse HEAD)
+remote_commits=$(git rev-parse @{u})
+
+if [ "$local_commits" != "$remote_commits" ]; then
+  echo "⚠️  Remote changes detected - run 'git pull' to integrate them"
+  cd "$original_dir"
+  exit 1
+fi
+
+build_success=0
+nix build .#darwinConfigurations.ssanchez.system --impure -L -v || build_success=1
+
+if [ $build_success -eq 0 ]; then
+  ./result/sw/bin/darwin-rebuild switch --flake .#ssanchez --impure -L -v
+  git add .
+  git commit -a
+  git push
+else
+  echo "❌ Nix build failed"
+fi
+
+cd "$original_dir"
 </file>
 
 <file path="archie.nix">
-{ astronvim, config, pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   dotfiles = ./dotconfig;
-in 
+in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -548,8 +606,6 @@ in
   xdg.configFile."sway/config".source = "${dotfiles}/sway/config.config";
   xdg.configFile."hypr".source = "${dotfiles}/hypr";
 
-  xdg.configFile."nvim".source = "${astronvim}";
-
   imports = [
     ./nixie/common-home.nix
     ./nixie/configs/common.nix
@@ -560,23 +616,6 @@ in
 <file path="flake.lock">
 {
   "nodes": {
-    "astronvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1695119958,
-        "narHash": "sha256-jtTaWtQ06Vf7icoWB6YGuBmLCVQv+WUdz2bBh00pj2A=",
-        "owner": "astronvim",
-        "repo": "astronvim",
-        "rev": "00c4abb95bf83ff1f00f411b65faa1b098d9a9d6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "astronvim",
-        "ref": "v3.36.11",
-        "repo": "astronvim",
-        "type": "github"
-      }
-    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -584,11 +623,11 @@ in
         ]
       },
       "locked": {
-        "lastModified": 1739302241,
-        "narHash": "sha256-NXQXFU6HOschZ+8ZKrNOlwlHelez8vPl+dCiUaJ82/U=",
+        "lastModified": 1739548217,
+        "narHash": "sha256-rlv64erpr36xdmMDPgf9rhRXBYZ0BZb5nrw2ZPSk1sQ=",
         "owner": "lnl7",
         "repo": "nix-darwin",
-        "rev": "a6746213b138fe7add88b19bafacd446de574ca7",
+        "rev": "678b22642abde2ee77ae2218ab41d802f010e5b0",
         "type": "github"
       },
       "original": {
@@ -605,11 +644,11 @@ in
         ]
       },
       "locked": {
-        "lastModified": 1739416022,
-        "narHash": "sha256-Af1CIT+XlXEb+Dk11sgPDzJoOUiada2Xoj5hA8TBvLY=",
+        "lastModified": 1739845242,
+        "narHash": "sha256-rNMXpDubNWGLTs45MuoH9YHtXfXye/fn2u4YMSTPt9I=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "c9d343cfa0565671cc7e8d5aefebaf61cc840abd",
+        "rev": "5cfbf5cc37a3bd1da07ae84eea1b828909c4456b",
         "type": "github"
       },
       "original": {
@@ -621,7 +660,6 @@ in
     },
     "root": {
       "inputs": {
-        "astronvim": "astronvim",
         "darwin": "darwin",
         "home-manager": "home-manager",
         "stable": "stable",
@@ -630,11 +668,11 @@ in
     },
     "stable": {
       "locked": {
-        "lastModified": 1739206421,
-        "narHash": "sha256-PwQASeL2cGVmrtQYlrBur0U20Xy07uSWVnFup2PHnDs=",
+        "lastModified": 1739758141,
+        "narHash": "sha256-uq6A2L7o1/tR6VfmYhZWoVAwb3gTy7j4Jx30MIrH0rE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "44534bc021b85c8d78e465021e21f33b856e2540",
+        "rev": "c618e28f70257593de75a7044438efc1c1fc0791",
         "type": "github"
       },
       "original": {
@@ -645,11 +683,11 @@ in
     },
     "unstable": {
       "locked": {
-        "lastModified": 1739214665,
-        "narHash": "sha256-26L8VAu3/1YRxS8MHgBOyOM8xALdo6N0I04PgorE7UM=",
+        "lastModified": 1739736696,
+        "narHash": "sha256-zON2GNBkzsIyALlOCFiEBcIjI4w38GYOb+P+R4S8Jsw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "64e75cd44acf21c7933d61d7721e812eac1b5a0a",
+        "rev": "d74a2335ac9c133d6bbec9fc98d91a77f1604c1f",
         "type": "github"
       },
       "original": {
@@ -683,20 +721,24 @@ in
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "stable";
 
-    astronvim.url = "github:astronvim/astronvim/v3.36.11";
-    astronvim.flake = false;
-
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "stable";
     };
   };
 
-  outputs = inputs@{ astronvim, darwin, home-manager, stable, unstable, ... }:
+  outputs =
+    {
+      darwin,
+      home-manager,
+      stable,
+      unstable,
+      ...
+    }:
     let
       linuxSystem = "x86_64-linux";
       macSystem = "aarch64-darwin";
-      
+
       # Overlay for stable packages
       overlays = [
         (final: prev: {
@@ -708,13 +750,12 @@ in
       ];
 
       # Unified package set constructor
-      mkPkgs = system: import unstable {
-        inherit system overlays;
-        config.allowUnfree = true;
-      };
-      specialArgs = {
-        inherit astronvim;
-      };
+      mkPkgs =
+        system:
+        import unstable {
+          inherit system overlays;
+          config.allowUnfree = true;
+        };
     in
     {
       formatter.x86_64-linux = stable.legacyPackages.x86_64-linux.nixpkgs-fmt;
@@ -737,15 +778,13 @@ in
       # Arch config
       homeConfigurations."archie" = home-manager.lib.homeManagerConfiguration {
         pkgs = mkPkgs linuxSystem;
-        extraSpecialArgs = specialArgs;
-        modules = [ 
-          ./linux/home.nix 
+        modules = [
+          ./linux/home.nix
         ];
       };
 
       homeConfigurations."ssanchez" = home-manager.lib.homeManagerConfiguration {
         pkgs = mkPkgs macSystem;
-        extraSpecialArgs = specialArgs;
         modules = [
           ./darwin/home.nix
         ];
@@ -781,7 +820,7 @@ in
   # `home-manager` currently has issues adding them to `~/Applications`
   # Issue: https://github.com/nix-community/home-manager/issues/1341
   environment.systemPackages = with pkgs; [
-  beam.packages.erlang_26.elixir_1_16
+    beam.packages.erlang_26.elixir_1_16
   ];
 
   # https://github.com/nix-community/home-manager/issues/423

@@ -16,16 +16,20 @@
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "stable";
 
-    astronvim.url = "github:astronvim/astronvim/v3.36.11";
-    astronvim.flake = false;
-
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "stable";
     };
   };
 
-  outputs = inputs@{ astronvim, darwin, home-manager, stable, unstable, ... }:
+  outputs =
+    {
+      darwin,
+      home-manager,
+      stable,
+      unstable,
+      ...
+    }:
     let
       linuxSystem = "x86_64-linux";
       macSystem = "aarch64-darwin";
@@ -41,13 +45,12 @@
       ];
 
       # Unified package set constructor
-      mkPkgs = system: import unstable {
-        inherit system overlays;
-        config.allowUnfree = true;
-      };
-      specialArgs = {
-        inherit astronvim;
-      };
+      mkPkgs =
+        system:
+        import unstable {
+          inherit system overlays;
+          config.allowUnfree = true;
+        };
     in
     {
       formatter.x86_64-linux = stable.legacyPackages.x86_64-linux.nixpkgs-fmt;
@@ -70,7 +73,6 @@
       # Arch config
       homeConfigurations."archie" = home-manager.lib.homeManagerConfiguration {
         pkgs = mkPkgs linuxSystem;
-        extraSpecialArgs = specialArgs;
         modules = [
           ./linux/home.nix
         ];
@@ -78,7 +80,6 @@
 
       homeConfigurations."ssanchez" = home-manager.lib.homeManagerConfiguration {
         pkgs = mkPkgs macSystem;
-        extraSpecialArgs = specialArgs;
         modules = [
           ./darwin/home.nix
         ];

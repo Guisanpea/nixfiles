@@ -1,4 +1,4 @@
-{ astronvim, config, pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   dotfiles = ./dotconfig;
@@ -67,8 +67,6 @@ in
   xdg.configFile."waybar".source = "${dotfiles}/waybar";
   xdg.configFile."sway/config".source = "${dotfiles}/sway/config.config";
   xdg.configFile."hypr".source = "${dotfiles}/hypr";
-
-  xdg.configFile."nvim".source = "${astronvim}";
 
   imports = [
     ./nixie/common-home.nix
