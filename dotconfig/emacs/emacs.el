@@ -1,5 +1,3 @@
-(add-to-list 'load-path "~/.config/emacs/lisp/")
-
 ;;;; Smart Parentheses
 (defun module/misc/smartparens ()
     (use-package smartparens
@@ -27,7 +25,5 @@
 
 (setq-default TeX-engine 'xetex)
 (setq-default TeX-PDF-mode t)
-
-(load-file "~/.config/emacs/modes.el")
 
 (load-file "~/.config/emacs/font.el")

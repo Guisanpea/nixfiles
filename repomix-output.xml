@@ -1,0 +1,838 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+</notes>
+
+<additional_info>
+
+</additional_info>
+
+</file_summary>
+
+<directory_structure>
+common/
+  programs/
+    default.nix
+    git.nix
+    php.nix
+    zsh.nix
+  home.nix
+  packages.nix
+darwin/
+  home.nix
+  packages.nix
+linux/
+  home.nix
+  packages.nix
+scripts/
+  apply_arch_term.sh
+  sway-test.sh
+  toggle_chatgpt.sh
+  toggle_todoist.sh
+  toggle_whatsapp.sh
+.gitignore
+.repomixignore
+apply-arch.sh
+apply-mac.sh
+archie.nix
+flake.lock
+flake.nix
+mac-system.nix
+repomix.config.json
+update.sh
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="common/programs/default.nix">
+{ config, pkgs, ... }: {
+  imports = [
+    ./git.nix
+    ./php.nix
+    ./zsh.nix
+  ];
+}
+</file>
+
+<file path="common/programs/git.nix">
+# Git configuration that is common across all systems
+{ config, pkgs, lib, ... }:
+
+{
+  programs.git = {
+    enable = true;
+    extraConfig = {
+      safe.directory = "/home/nixie/.dotfiles";
+    };
+    userName = "Santi";
+    userEmail = "guisanpea" + "@" + "gmail.com";
+  };
+}
+</file>
+
+<file path="common/programs/php.nix">
+{ pkgs, ... }:
+
+with pkgs;
+let 
+  myphp81 = php81.buildEnv {
+    extensions = ({ enabled, all }: enabled ++ [ all.ssh2 all.tidy all.dom all.rdkafka all.xdebug ]);
+    extraConfig = ''
+      memory_limit = 8G
+      max_execution_time = 600
+      [xdebug]
+      xdebug.mode = debug
+      xdebug.profiler_output_name = cachegrind.out.%p
+      xdebug.output_dir=/Users/ssanchez/work/ouiteamserver_interne
+      xdebug.start_with_request = trigger
+      xdebug.discover_client_host = 1
+      xdebug.client_host=127.0.0.1
+      xdebug.log=/tmp/xdebug.log
+      xdebug.log_level=3
+    '';
+  };
+in {
+  home.packages = [];
+}
+</file>
+
+<file path="common/programs/zsh.nix">
+{ pkgs, config, ... }:
+
+
+{
+  programs = {
+    zsh = {
+    enable = true;
+    enableCompletion = true;
+    shellAliases = {
+      k = "kubectl";
+      ls = "eza";
+      anix = "${config.home.homeDirectory}/.dotfiles/apply-arch.sh";
+      test-sway = "${config.home.homeDirectory}/.dotfiles/scripts/sway-test.sh";
+      mnix = "${config.home.homeDirectory}/.dotfiles/apply-mac.sh";
+      unix = "${config.home.homeDirectory}/.dotfiles/update.sh";
+      snix = "${config.home.homeDirectory}/.dotfiles/apply-system.sh";
+      csf = "./vendor/bin/php-cs-fixer fix";
+      asdf = "true";
+#      code = "code --enable-features=UseOzonePlatform --ozone-platform=wayland --ozone-platform-hint=auto";
+      doom = "~/.config/emacs/bin/doom";
+      archpath = "export PATH=$(echo $PATH | tr ':' '\n' | grep -v '/.nix-profile' | grep -v '/nix/var/nix/profiles' | tr '\n' ':' | sed 's/:$//')";
+    };
+    initExtra = ''
+      bindkey "^[[1;5C" forward-word # Ctrl + right
+      bindkey "^[[1;5D" backward-word # Ctrl + left
+    '';
+    plugins = [
+      {
+        name = pkgs.zsh-autosuggestions.pname;
+        file = "zsh-autosuggestions.zsh";
+        src = "${pkgs.zsh-autosuggestions}/share/${pkgs.zsh-autosuggestions.pname}";
+      }
+      {
+        name = pkgs.zsh-syntax-highlighting.pname;
+        file = "zsh-syntax-highlighting.zsh";
+        src = "${pkgs.zsh-syntax-highlighting}/share/${pkgs.zsh-syntax-highlighting.pname}";
+      }
+    ];
+  };
+    starship.enable = true;
+    starship.enableZshIntegration = true;
+    };
+}
+</file>
+
+<file path="common/home.nix">
+# Common home configuration shared across all systems
+{ config, pkgs, ... }:
+
+let
+  dotfiles = ../dotconfig;
+in
+{
+  imports = [
+    ./packages.nix
+    ./programs
+  ];
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  # Common dotfile configurations
+  xdg.configFile = {
+    "tmux".source = "${dotfiles}/tmux";
+    "doom".source = "${dotfiles}/doom.d";
+    "hypr".source = "${dotfiles}/hypr";
+  };
+  
+  home.file.".npmrc".source = "${dotfiles}/npmrc";
+
+  # This value determines the Home Manager release that your
+  # configuration is compatible with
+  home.stateVersion = "20.09";
+}
+</file>
+
+<file path="common/packages.nix">
+{ pkgs, ... }:
+
+with pkgs; 
+{
+  home.packages = with pkgs; [
+    # CLI
+    aichat
+    babashka
+    bat
+    bottom
+    broot
+    cachix
+    cloc
+    cowsay
+    duf
+    eza
+    fd
+    feh
+    fortune
+    fzf
+    gdu
+    git
+    git-crypt
+    gnupg
+    gping
+    htop
+    imagemagick
+    jq
+    lazygit
+    leiningen
+    navi
+    neovim
+    nil
+    nix-prefetch-github
+    nix-prefetch-git
+    nixpkgs-fmt
+    neofetch
+    or-tools
+    pv
+    redis
+    ripgrep
+    sbt
+    tldr
+    tmux
+    tree
+    unrar
+    unzip
+    wireguard-tools
+    zip
+
+    # DEVELOPMENT
+    bun
+    clojure
+    curl
+    docker-compose
+    gh
+    httpie
+    jdk
+    kubectl
+    kubectx
+    leiningen
+    mariadb
+    nixfmt-rfc-style
+    nodePackages.npm
+    nodejs
+    yarn
+
+    # PHP
+    symfony-cli
+  ];
+}
+</file>
+
+<file path="darwin/home.nix">
+# macOS-specific home configuration
+{ lib, config, pkgs, ... }:
+
+{
+  imports = [
+    ../common/home.nix
+    ./packages.nix
+  ];
+
+  home = {
+    homeDirectory = lib.mkForce "/Users/ssanchez";
+  };
+}
+</file>
+
+<file path="darwin/packages.nix">
+{ pkgs, ... }:
+
+{
+  home.packages = (import ../common/packages.nix { inherit pkgs; }).home.packages ++ (with pkgs; [
+    m-cli
+  ]);
+}
+</file>
+
+<file path="linux/home.nix">
+# Linux-specific home configuration
+{ config, pkgs, ... }:
+
+let
+  dotfiles = ../dotconfig;
+in
+{
+  imports = [
+    ../common/home.nix
+    ./packages.nix
+  ];
+
+  home = {
+    username = "archie";
+    homeDirectory = "/home/archie";
+  };
+
+  # Linux-specific dotfiles
+  xdg.configFile = {
+    "alacritty".source = "${dotfiles}/alacritty";
+    "i3".source = "${dotfiles}/i3";
+    "waybar".source = "${dotfiles}/waybar";
+  };
+}
+</file>
+
+<file path="linux/packages.nix">
+{ pkgs, ... }:
+
+{
+  imports = [ ../common/packages.nix ];
+}
+</file>
+
+<file path="scripts/apply_arch_term.sh">
+#!/bin/bash
+
+# The command you want to run
+COMMAND="~/.dotfiles/apply-arch.sh"
+
+foot --app-id floating  ~/.dotfiles/apply-arch.sh
+</file>
+
+<file path="scripts/sway-test.sh">
+#!/bin/bash
+
+cp ~/.config/sway/config ~/.config/sway/config.orig && \
+rm ~/.config/sway/config && \
+mv ~/.config/sway/config.orig ~/.config/sway/config && \
+chmod +w ~/.config/sway/config
+</file>
+
+<file path="scripts/toggle_chatgpt.sh">
+#!/bin/bash
+
+# Define the app_id for Todoist
+APP_ID="chat-gpt"
+
+# Get the window information using swaymsg and jq
+WINDOW_INFO=$(swaymsg -t get_tree | jq '.. | select(.app_id? == "'$APP_ID'")')
+
+# Check if the window exists
+if [[ ! -z "$WINDOW_INFO" ]]; then
+    # Check if the window is visible
+    if [[ $(echo "$WINDOW_INFO" | jq '.visible') == "true" ]]; then
+        # If visible, hide the window
+        swaymsg "[app_id=\"$APP_ID\"] move scratchpad"
+    else
+        # If not visible, show the window
+        swaymsg "[app_id=\"$APP_ID\"] scratchpad show"
+    fi
+else
+    chat-gpt
+fi
+</file>
+
+<file path="scripts/toggle_todoist.sh">
+#!/bin/bash
+
+# Define the app_id for Todoist
+APP_ID="FFPWA-01HKN7B79GP8PQ9ERFFX4RZJ8P"
+
+# Get the window information using swaymsg and jq
+WINDOW_INFO=$(swaymsg -t get_tree | jq '.. | select(.app_id? == "'$APP_ID'")')
+
+# Check if the window exists
+if [[ ! -z "$WINDOW_INFO" ]]; then
+    # Check if the window is visible
+    if [[ $(echo "$WINDOW_INFO" | jq '.visible') == "true" ]]; then
+        # If visible, hide the window
+        swaymsg "[app_id=\"$APP_ID\"] move scratchpad"
+    else
+        # If not visible, show the window
+        swaymsg "[app_id=\"$APP_ID\"] scratchpad show"
+    fi
+else
+   firefoxpwa site launch 01HKN7B79GP8PQ9ERFFX4RZJ8P
+fi
+</file>
+
+<file path="scripts/toggle_whatsapp.sh">
+#!/bin/bash
+
+# Define the app_id for Whatsapp
+APP_ID="FFPWA-01HKQ02CZ0FJ90985QX9J9YGEK"
+
+# Get the window information using swaymsg and jq
+WINDOW_INFO=$(swaymsg -t get_tree | jq '.. | select(.app_id? == "'$APP_ID'")')
+
+# Check if the window exists
+if [[ ! -z "$WINDOW_INFO" ]]; then
+    # Check if the window is visible
+    if [[ $(echo "$WINDOW_INFO" | jq '.visible') == "true" ]]; then
+        # If visible, hide the window
+        swaymsg "[app_id=\"$APP_ID\"] move scratchpad"
+    else
+        # If not visible, show the window
+        swaymsg "[app_id=\"$APP_ID\"] scratchpad show"
+    fi
+else
+   firefoxpwa site launch 01HKQ02CZ0FJ90985QX9J9YGEK
+fi
+</file>
+
+<file path=".gitignore">
+result
+result-*
+.aider*
+.env
+</file>
+
+<file path=".repomixignore">
+# Add patterns to ignore here, one per line
+# Example:
+# *.log
+# tmp/
+promela-mode.el
+init.el
+allow-mode.el
+dotconfig/
+</file>
+
+<file path="apply-arch.sh">
+#!/bin/bash
+
+cd ~/.dotfiles
+nix build ~/.dotfiles#homeConfigurations.archie.activationPackage --impure
+~/.dotfiles/result/activate
+cd -
+hyprctl reload
+echo 'Press enter to close'
+read
+</file>
+
+<file path="apply-mac.sh">
+#!/usr/bin/env sh
+set -Eeuo pipefail
+
+cd ~/.dotfiles
+git pull
+nix build .#darwinConfigurations.ssanchez.system --impure -L -v &&
+  ./result/sw/bin/darwin-rebuild switch --flake .#ssanchez --impure -L -v &&
+  git add . &&
+  git commit -a &&
+  git push 
+cd -
+</file>
+
+<file path="archie.nix">
+{ astronvim, config, pkgs, ... }:
+
+let
+  dotfiles = ./dotconfig;
+in 
+{
+  # Home Manager needs a bit of information about you and the paths it should
+  # manage.
+  home.username = "archie";
+  home.homeDirectory = "/home/archie";
+
+  # The home.packages option allows you to install Nix packages into your
+  # environment.
+  home.packages = [
+    # # Adds the 'hello' command to your environment. It prints a friendly
+    # # "Hello, world!" when run.
+    # pkgs.hello
+
+    # # It is sometimes useful to fine-tune packages, for example, by applying
+    # # overrides. You can do that directly here, just don't forget the
+    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
+    # # fonts?
+    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+
+    # # You can also create simple shell scripts directly inside your
+    # # configuration. For example, this adds a command 'my-hello' to your
+    # # environment:
+    # (pkgs.writeShellScriptBin "my-hello" ''
+    #   echo "Hello, ${config.home.username}!"
+    # '')
+    pkgs.neofetch
+  ];
+
+  # Home Manager is pretty good at managing dotfiles. The primary way to manage
+  # plain files is through 'home.file'.
+  home.file = {
+    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
+    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
+    # # symlink to the Nix store copy.
+    # ".screenrc".source = dotfiles/screenrc;
+
+    # # You can also set the file content immediately.
+    # ".gradle/gradle.properties".text = ''
+    #   org.gradle.console=verbose
+    #   org.gradle.daemon.idletimeout=3600000
+    # '';
+  };
+
+  # You can also manage environment variables but you will have to manually
+  # source
+  #
+  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
+  #
+  # or
+  #
+  #  /etc/profiles/per-user/archie/etc/profile.d/hm-session-vars.sh
+  #
+  # if you don't want to manage your shell through Home Manager.
+  home.sessionVariables = {
+    MOZ_ENABLE_WAYLAND = 1;
+    ELECTRON_OZONE_PLATFORM_HINT = "wayland";
+  };
+
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+
+  xdg.configFile."waybar".source = "${dotfiles}/waybar";
+  xdg.configFile."sway/config".source = "${dotfiles}/sway/config.config";
+  xdg.configFile."hypr".source = "${dotfiles}/hypr";
+
+  xdg.configFile."nvim".source = "${astronvim}";
+
+  imports = [
+    ./nixie/common-home.nix
+    ./nixie/configs/common.nix
+  ];
+}
+</file>
+
+<file path="flake.lock">
+{
+  "nodes": {
+    "astronvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1695119958,
+        "narHash": "sha256-jtTaWtQ06Vf7icoWB6YGuBmLCVQv+WUdz2bBh00pj2A=",
+        "owner": "astronvim",
+        "repo": "astronvim",
+        "rev": "00c4abb95bf83ff1f00f411b65faa1b098d9a9d6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "astronvim",
+        "ref": "v3.36.11",
+        "repo": "astronvim",
+        "type": "github"
+      }
+    },
+    "darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1739302241,
+        "narHash": "sha256-NXQXFU6HOschZ+8ZKrNOlwlHelez8vPl+dCiUaJ82/U=",
+        "owner": "lnl7",
+        "repo": "nix-darwin",
+        "rev": "a6746213b138fe7add88b19bafacd446de574ca7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lnl7",
+        "ref": "master",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1739416022,
+        "narHash": "sha256-Af1CIT+XlXEb+Dk11sgPDzJoOUiada2Xoj5hA8TBvLY=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "c9d343cfa0565671cc7e8d5aefebaf61cc840abd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "master",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "astronvim": "astronvim",
+        "darwin": "darwin",
+        "home-manager": "home-manager",
+        "stable": "stable",
+        "unstable": "unstable"
+      }
+    },
+    "stable": {
+      "locked": {
+        "lastModified": 1739206421,
+        "narHash": "sha256-PwQASeL2cGVmrtQYlrBur0U20Xy07uSWVnFup2PHnDs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "44534bc021b85c8d78e465021e21f33b856e2540",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-24.11",
+        "type": "indirect"
+      }
+    },
+    "unstable": {
+      "locked": {
+        "lastModified": 1739214665,
+        "narHash": "sha256-26L8VAu3/1YRxS8MHgBOyOM8xALdo6N0I04PgorE7UM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "64e75cd44acf21c7933d61d7721e812eac1b5a0a",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-unstable",
+        "type": "indirect"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
+</file>
+
+<file path="flake.nix">
+{
+  description = "Sanchez's Nix Systems Configuration";
+  # Note which Nix version is required
+  nixConfig.extra-experimental-features = "nix-command flakes";
+  nixConfig.extra-substituters = [
+    "https://nix-community.cachix.org"
+  ];
+  nixConfig.extra-trusted-public-keys = [
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  ];
+
+  inputs = {
+    unstable.url = "nixpkgs/nixos-unstable";
+    stable.url = "nixpkgs/nixos-24.11";
+
+    darwin.url = "github:lnl7/nix-darwin/master";
+    darwin.inputs.nixpkgs.follows = "stable";
+
+    astronvim.url = "github:astronvim/astronvim/v3.36.11";
+    astronvim.flake = false;
+
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "stable";
+    };
+  };
+
+  outputs = inputs@{ astronvim, darwin, home-manager, stable, unstable, ... }:
+    let
+      linuxSystem = "x86_64-linux";
+      macSystem = "aarch64-darwin";
+      
+      # Overlay for stable packages
+      overlays = [
+        (final: prev: {
+          stable = import stable {
+            inherit (prev) system;
+            config.allowUnfree = true;
+          };
+        })
+      ];
+
+      # Unified package set constructor
+      mkPkgs = system: import unstable {
+        inherit system overlays;
+        config.allowUnfree = true;
+      };
+      specialArgs = {
+        inherit astronvim;
+      };
+    in
+    {
+      formatter.x86_64-linux = stable.legacyPackages.x86_64-linux.nixpkgs-fmt;
+      # Mac config
+      darwinConfigurations = {
+        ssanchez = darwin.lib.darwinSystem {
+          system = macSystem;
+          pkgs = mkPkgs macSystem;
+          modules = [
+            ./mac-system.nix
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.ssanchez = import ./darwin/home.nix;
+            }
+          ];
+        };
+      };
+      # Arch config
+      homeConfigurations."archie" = home-manager.lib.homeManagerConfiguration {
+        pkgs = mkPkgs linuxSystem;
+        extraSpecialArgs = specialArgs;
+        modules = [ 
+          ./linux/home.nix 
+        ];
+      };
+
+      homeConfigurations."ssanchez" = home-manager.lib.homeManagerConfiguration {
+        pkgs = mkPkgs macSystem;
+        extraSpecialArgs = specialArgs;
+        modules = [
+          ./darwin/home.nix
+        ];
+      };
+    };
+}
+</file>
+
+<file path="mac-system.nix">
+{ pkgs, lib, config, ... }: {
+  # Nix configuration ------------------------------------------------------------------------------
+
+  nix.settings.substituters = [ "https://cache.nixos.org/" ];
+  nix.settings.trusted-public-keys =
+    [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+  nix.settings.trusted-users = [ "@admin" ];
+  nix.configureBuildUsers = true;
+
+  nix.extraOptions = ''
+    auto-optimise-store = true
+    experimental-features = nix-command flakes
+  '' + lib.optionalString (pkgs.system == "aarch64-darwin") ''
+    extra-platforms = x86_64-darwin aarch64-darwin
+  '';
+
+  # Create /etc/bashrc that loads the nix-darwin environment.
+  programs.zsh.enable = true;
+
+  # Auto upgrade nix package and the daemon service.
+  services.nix-daemon.enable = true;
+
+  # Apps
+  # `home-manager` currently has issues adding them to `~/Applications`
+  # Issue: https://github.com/nix-community/home-manager/issues/1341
+  environment.systemPackages = with pkgs; [
+  beam.packages.erlang_26.elixir_1_16
+  ];
+
+  # https://github.com/nix-community/home-manager/issues/423
+  programs.nix-index.enable = true;
+
+
+  # Keyboard
+  system.keyboard.enableKeyMapping = true;
+  system.keyboard.remapCapsLockToEscape = true;
+
+  ids.gids.nixbld = 30000;
+
+  system.stateVersion = 5;
+}
+</file>
+
+<file path="repomix.config.json">
+{
+  "output": {
+    "filePath": "repomix-output.xml",
+    "style": "xml",
+    "parsableStyle": false,
+    "fileSummary": true,
+    "directoryStructure": true,
+    "removeComments": false,
+    "removeEmptyLines": false,
+    "compress": false,
+    "topFilesLength": 5,
+    "showLineNumbers": false,
+    "copyToClipboard": false
+  },
+  "include": [],
+  "ignore": {
+    "useGitignore": true,
+    "useDefaultPatterns": true,
+    "customPatterns": []
+  },
+  "security": {
+    "enableSecurityCheck": true
+  },
+  "tokenCount": {
+    "encoding": "o200k_base"
+  }
+}
+</file>
+
+<file path="update.sh">
+#!/bin/sh
+pushd ~/.dotfiles
+nix flake update
+popd
+</file>
+
+</files>
