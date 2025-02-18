@@ -1,5 +1,5 @@
 # Common home configuration shared across all systems
-{ config, pkgs, ... }:
+{ config, ... }:
 
 let
   dotfiles = ../dotconfig;
