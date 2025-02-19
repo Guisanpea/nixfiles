@@ -13,9 +13,12 @@
         mnix = "${config.home.homeDirectory}/.dotfiles/apply-mac.sh";
         unix = "${config.home.homeDirectory}/.dotfiles/update.sh";
         csf = "./vendor/bin/php-cs-fixer fix";
-        asdf = "true";
         doom = "~/.config/emacs/bin/doom";
         archpath = "export PATH=$(echo $PATH | tr ':' '\n' | grep -v '/.nix-profile' | grep -v '/nix/var/nix/profiles' | tr '\n' ':' | sed 's/:$//')";
+        # Development aliases
+        asdf = "true";
+        eenv = "export $(grep -v '^#' ./.env | xargs)";
+        renv = "export $(grep -v '^#' ../.env | xargs)";
       };
       initExtra = ''
         bindkey "^[[1;5C" forward-word # Ctrl + right
