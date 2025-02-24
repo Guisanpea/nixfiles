@@ -5,7 +5,7 @@ return {
     'JetBrains Mono Nerd Font',
     'Noto Sans Mono',
   }),
-  font_size = 16.0,
+  font_size = 14.0,
 
   -- Catppuccin Theme
   color_scheme = 'Catppuccin Latte',
