@@ -49,7 +49,7 @@ with pkgs;
     yarn
 
     # DATABASES & SERVICES
-    mariadb
+    mysql84
     redis
     docker-compose
 
