@@ -17,6 +17,7 @@ with pkgs;
     eza
     fd
     feh
+    pandoc
     ripgrep
     tree
     unrar
