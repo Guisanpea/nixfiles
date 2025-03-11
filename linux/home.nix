@@ -13,6 +13,12 @@ in
   home = {
     username = "archie";
     homeDirectory = "/home/archie";
+    file.".Xmodmap".text = ''
+      clear Lock
+      keysym Caps_Lock = Escape
+      keysym Escape = Caps_Lock
+      add Lock = Caps_Lock
+    '';
   };
 
   # Linux-specific dotfiles
