@@ -19,7 +19,6 @@ in
   xdg.configFile = {
     "tmux".source = "${dotfiles}/tmux";
     "doom".source = "${dotfiles}/doom.d";
-    "hypr".source = "${dotfiles}/hypr";
     "wezterm".source = "${dotfiles}/wezterm";
     "nvim_init" = {
       source = "${dotfiles}/nvim";
@@ -39,7 +38,6 @@ in
     };
   };
 
-  home.file.".npmrc".source = "${dotfiles}/npmrc";
 
   # This value determines the Home Manager release that your
   # configuration is compatible with

@@ -78,11 +78,5 @@
         ];
       };
 
-      homeConfigurations."ssanchez" = home-manager.lib.homeManagerConfiguration {
-        pkgs = mkPkgs macSystem;
-        modules = [
-          ./darwin/home.nix
-        ];
-      };
     };
 }

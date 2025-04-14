@@ -2,6 +2,13 @@
 set -Eeuo pipefail
 
 original_dir=$(pwd)
+no_git=0
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --no-git) no_git=1 ;;
+    esac
+    shift
+done
 cd ~/.dotfiles
 
 # Check for remote changes
@@ -20,9 +27,11 @@ nix build .#darwinConfigurations.ssanchez.system --impure -L -v || build_success
 
 if [ $build_success -eq 0 ]; then
   ./result/sw/bin/darwin-rebuild switch --flake .#ssanchez --impure -L -v
-  git add .
-  git commit -a
-  git push
+  if [ $no_git -eq 0 ]; then
+    git add .
+    git commit -a
+    git push
+  fi
 else
   echo "❌ Nix build failed"
 fi

@@ -8,6 +8,8 @@
       shellAliases = {
         k = "kubectl";
         ls = "eza";
+        ll = "eza -l";
+        la = "eza -la";
         anix = "${config.home.homeDirectory}/.dotfiles/apply-arch.sh";
         nanix = "${config.home.homeDirectory}/.dotfiles/apply-arch.sh --no-git";
         mnix = "${config.home.homeDirectory}/.dotfiles/apply-mac.sh";
