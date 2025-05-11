@@ -79,8 +79,5 @@ with pkgs;
 
     # LLM
     aichat
-    (aider-chat.overrideAttrs (oldAttrs: {
-      version = "0.75.2";
-    })).withPlaywright
   ];
 }

@@ -58,10 +58,4 @@
     "application/x-bittorrent" = [ "org.qbittorrent.qBittorrent.desktop" ];
   };
 
-  # Added Associations (if needed, can be extended)
-  addedAssociations = {
-    "application/pdf" = [ "org.pwmt.zathura.desktop" ];
-    "application/x-bittorrent" = [ "org.qbittorrent.qBittorrent.desktop" ];
-    "text/markdown" = [ "nvim.desktop" ];
-  };
 }
