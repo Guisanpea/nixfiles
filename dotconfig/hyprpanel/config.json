@@ -228,6 +228,7 @@
       "right": [
         "volume",
         "microphone",
+        "battery",
         "network",
         "bluetooth",
         "systray",
@@ -261,7 +262,7 @@
   "menus.clock.time.military": true,
   "menus.dashboard.shortcuts.enabled": true,
   "theme.matugen": true,
-  "wallpaper.image": "/home/archie/wallpaper.png",
+  "wallpaper.image": "~/.dotfiles/wallpaper.png",
   "theme.matugen_settings.mode": "light",
   "theme.matugen_settings.scheme_type": "tonal-spot",
   "theme.matugen_settings.variation": "standard_1",

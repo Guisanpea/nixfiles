@@ -27,7 +27,7 @@ yay -Syu --needed \
 
 ```sh
 yay -Syu --needed \
-  btop brightnessctl bluez bluez-utils docker docker-compose git networkmanager power-profiles-daemon refind wireplumber wl-clipboard cpio
+  btop brightnessctl bluez bluez-utils docker docker-compose git networkmanager power-profiles-daemon refind wireplumber wl-clipboard cpio network-manager network-manager-applet
 ```
 
 ## Base system setup
@@ -81,6 +81,19 @@ sudo mkdir /boot/EFI/refind/themes
 sudo git clone https://github.com/catppuccin/refind.git /boot/EFI/refind/themes/catppuccin
 sudo systemctl enable --now docker.service
 sudo usermod -aG docker $USER
+sudo systemctl stop iwd.service
+sudo systemctl disable iwd.service
+sudo systemctl stop systemd-networkd.service
+sudo systemctl disable systemd-networkd.service
+sudo systemctl stop systemd-networkd.socket
+sudo systemctl disable systemd-networkd.socket
+sudo systemctl enable --now bluetooth
+sudo systemctl enable --now NetworkManager
+```
+
+# Connect to network now with nmtui (You may need to restart before)
+```
+nmtui
 ```
 
 # Dotfiles Flake Structure
