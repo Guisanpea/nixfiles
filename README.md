@@ -26,67 +26,22 @@ makepkg -si
 ```
 yay -Syu --needed \
 \
-# Base System & Utilities
-docker \
-docker-compose \
-firefox \
+# Core GUI Applications
+1password baobab blueman calibre chromium dbeaver file-roller firefox gparted imv jetbrains-toolbox logseq-desktop-bin nautilus pavucontrol qbittorrent spotify strawberry stremio vesktop visual-studio-code-bin zathura zathura-pdf-mupdf \
 \
-# Core Generic GUI Applications
-1password \
-baobab \
-blueman \
-calibre \
-chromium \
-file-roller \
-firefox \
-gparted \
-imv \
-jetbrains-toolbox \
-logseq-desktop-bin \
-lutris \
-nautilus \
-pavucontrol \
-qbittorrent \
-spotify \
-steam \
-strawberry \
-vesktop \
-visual-studio-code-bin \
+# Hyprland Ecosystem & Wayland Utilities
+ags-hyprpanel-git grimblast-git hypridle hyprland hyprlock hyprpaper hyprpicker hyprshot rofi-lbonn-wayland-git swaync swww waybar wezterm wf-recorder-git wlsunset xdg-desktop-portal-wlr \
 \
-# Hyprland Window Manager & Ecosystem
-ags-hyprpanel-git \
-hypridle \
-hyprland \
-hyprlock \
-hyprpaper \
-hyprpicker \
-hyprshot \
-rofi-lbonn-wayland-git \
-swaync \
-swww \
-waybar \
-wezterm \
-wlsunset \
-xdg-desktop-portal-wlr \
+# Gaming & Overlays
+easyeffects goverlay lutris mangohud steam \
 \
-# Specific Workflow, Gaming & Media Apps
-dbeaver \
-easyeffects \
-goverlay \
-mangohud \
-stremio \
-zathura \
-zathura-pdf-mupdf \
-refind firefox git \
-\
-# hyprpanel
-aylurs-gtk-shell-git wireplumber libgtop bluez bluez-utils btop networkmanager dart-sass wl-clipboard brightnessctl swww python upower pacman-contrib power-profiles-daemon gvfs gtksourceview3 libsoup3 grimblast-git wf-recorder-git hyprpicker matugen-bin python-gpustat hyprsunset-git ags-hyprpanel-git
+# System Daemons & CLI Tools
+btop brightnessctl bluez bluez-utils docker docker-compose git networkmanager power-profiles-daemon refind wireplumber wl-clipboard
 ```
 
 ```
-cd ~/git
 git clone https://github.com/Guisanpea/nixfiles ~/.dotfiles
-~/.dotfiles/scripts/apply-arch.sh --no-git
+~/.dotfiles/apply-arch.sh --no-git
 ```
 
 # Post-installation setup
