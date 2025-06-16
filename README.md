@@ -1,55 +1,74 @@
 # Arch packages
 
+Below are recommended package groups for a typical Arch Linux desktop setup. Install each group as needed.
+
+## Core GUI Applications
+
+```sh
+yay -Syu --needed \
+  1password baobab blueman calibre chromium dbeaver file-roller firefox gparted imv jetbrains-toolbox logseq-desktop-bin nautilus pavucontrol qbittorrent spotify strawberry stremio vesktop visual-studio-code-bin zathura zathura-pdf-mupdf
 ```
+
+## Hyprland Ecosystem & Wayland Utilities
+
+```sh
+yay -Syu --needed \
+  ags-hyprpanel-git grimblast-git hypridle hyprland hyprlock hyprpaper hyprpicker hyprshot rofi-lbonn-wayland-git swaync swww waybar wezterm-git wf-recorder-git wlsunset xdg-desktop-portal-wlr matugen-bin
+```
+
+## Gaming & Overlays
+
+```sh
+yay -Syu --needed \
+  easyeffects goverlay lutris mangohud steam
+```
+
+## System Daemons & CLI Tools
+
+```sh
+yay -Syu --needed \
+  btop brightnessctl bluez bluez-utils docker docker-compose git networkmanager power-profiles-daemon refind wireplumber wl-clipboard
+```
+
+## Base system setup
+
+```sh
 sudo pacman -S --needed base-devel git
 ```
 
-```
+## Install Nix
+
+```sh
 curl -fsSL https://install.determinate.systems/nix | sh -s -- install
 ```
 
-```
+## Install yay (AUR helper)
+
+```sh
 # Navigate to a directory where you can build packages (e.g., your home directory)
 mkdir ~/git
 cd ~/git
 
-# Clone the yay repository from the AUR
 git clone https://aur.archlinux.org/yay.git
-
-# Enter the new directory
 cd yay
-
-# Build and install the package
 makepkg -si
 ```
 
-```
-yay -Syu --needed \
-\
-# Core GUI Applications
-1password baobab blueman calibre chromium dbeaver file-roller firefox gparted imv jetbrains-toolbox logseq-desktop-bin nautilus pavucontrol qbittorrent spotify strawberry stremio vesktop visual-studio-code-bin zathura zathura-pdf-mupdf \
-\
-# Hyprland Ecosystem & Wayland Utilities
-ags-hyprpanel-git grimblast-git hypridle hyprland hyprlock hyprpaper hyprpicker hyprshot rofi-lbonn-wayland-git swaync swww waybar wezterm wf-recorder-git wlsunset xdg-desktop-portal-wlr \
-\
-# Gaming & Overlays
-easyeffects goverlay lutris mangohud steam \
-\
-# System Daemons & CLI Tools
-btop brightnessctl bluez bluez-utils docker docker-compose git networkmanager power-profiles-daemon refind wireplumber wl-clipboard
-```
+## Clone dotfiles and apply config
 
-```
+```sh
 git clone https://github.com/Guisanpea/nixfiles ~/.dotfiles
 ~/.dotfiles/apply-arch.sh --no-git
 ```
 
-# Post-installation setup
+## Post-installation setup
 
+```sh
 sudo mkdir /boot/EFI/refind/themes
 sudo git clone https://github.com/catppuccin/refind.git /boot/EFI/refind/themes/catppuccin
 sudo systemctl enable --now docker.service
 sudo usermod -aG docker $USER
+```
 
 # Dotfiles Flake Structure
 

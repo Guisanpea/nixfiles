@@ -15,6 +15,7 @@ in
     enableZshIntegration = true;
   };
 
+
   # Common dotfile configurations
   xdg.configFile = {
     "tmux".source = "${dotfiles}/tmux";

@@ -28,6 +28,7 @@ in
 
   # Linux-specific dotfiles
   xdg.configFile = {
+    "hyprpanel".source = "${dotfiles}/hyprpanel";
     "alacritty".source = "${dotfiles}/alacritty";
     "i3".source = "${dotfiles}/i3";
     "waybar".source = "${dotfiles}/waybar";
