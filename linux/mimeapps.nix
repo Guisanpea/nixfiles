@@ -56,6 +56,9 @@
     "x-scheme-handler/slack" = [ "slack.desktop" ];
     "hoppscotch" = [ "hoppscotch-handler.desktop" ];
     "application/x-bittorrent" = [ "org.qbittorrent.qBittorrent.desktop" ];
+
+    # File Browser
+    "inode/directory" = [ "nautilus.desktop" ];
   };
 
 }

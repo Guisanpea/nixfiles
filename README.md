@@ -1,3 +1,101 @@
+# Arch packages
+
+```
+sudo pacman -S --needed base-devel git
+```
+
+```
+curl -fsSL https://install.determinate.systems/nix | sh -s -- install
+```
+
+```
+# Navigate to a directory where you can build packages (e.g., your home directory)
+mkdir ~/git
+cd ~/git
+
+# Clone the yay repository from the AUR
+git clone https://aur.archlinux.org/yay.git
+
+# Enter the new directory
+cd yay
+
+# Build and install the package
+makepkg -si
+```
+
+```
+yay -Syu --needed \
+\
+# Base System & Utilities
+docker \
+docker-compose \
+firefox \
+\
+# Core Generic GUI Applications
+1password \
+baobab \
+blueman \
+calibre \
+chromium \
+file-roller \
+firefox \
+gparted \
+imv \
+jetbrains-toolbox \
+logseq-desktop-bin \
+lutris \
+nautilus \
+pavucontrol \
+qbittorrent \
+spotify \
+steam \
+strawberry \
+vesktop \
+visual-studio-code-bin \
+\
+# Hyprland Window Manager & Ecosystem
+ags-hyprpanel-git \
+hypridle \
+hyprland \
+hyprlock \
+hyprpaper \
+hyprpicker \
+hyprshot \
+rofi-lbonn-wayland-git \
+swaync \
+swww \
+waybar \
+wezterm \
+wlsunset \
+xdg-desktop-portal-wlr \
+\
+# Specific Workflow, Gaming & Media Apps
+dbeaver \
+easyeffects \
+goverlay \
+mangohud \
+stremio \
+zathura \
+zathura-pdf-mupdf \
+refind firefox git \
+\
+# hyprpanel
+aylurs-gtk-shell-git wireplumber libgtop bluez bluez-utils btop networkmanager dart-sass wl-clipboard brightnessctl swww python upower pacman-contrib power-profiles-daemon gvfs gtksourceview3 libsoup3 grimblast-git wf-recorder-git hyprpicker matugen-bin python-gpustat hyprsunset-git ags-hyprpanel-git
+```
+
+```
+cd ~/git
+git clone https://github.com/Guisanpea/nixfiles ~/.dotfiles
+~/.dotfiles/scripts/apply-arch.sh --no-git
+```
+
+# Post-installation setup
+
+sudo mkdir /boot/EFI/refind/themes
+sudo git clone https://github.com/catppuccin/refind.git /boot/EFI/refind/themes/catppuccin
+sudo systemctl enable --now docker.service
+sudo usermod -aG docker $USER
+
 # Dotfiles Flake Structure
 
 This repository manages user and system configuration for both Arch Linux and macOS using [Nix flakes](https://nixos.wiki/wiki/Flakes), [Home Manager](https://nix-community.github.io/home-manager/), and [nix-darwin](https://github.com/LnL7/nix-darwin). It provides a reproducible, modular, and cross-platform dotfiles setup.
