@@ -30,6 +30,7 @@ in
   xdg.configFile = {
     "hyprpanel".source = "${dotfiles}/hyprpanel";
     "alacritty".source = "${dotfiles}/alacritty";
+    "code-flags.conf".source = "${dotfiles}/code-flags.conf";
     "i3".source = "${dotfiles}/i3";
     "waybar".source = "${dotfiles}/waybar";
     "sway/config".source = "${dotfiles}/sway/config.config";

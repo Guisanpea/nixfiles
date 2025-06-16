@@ -27,7 +27,7 @@ yay -Syu --needed \
 
 ```sh
 yay -Syu --needed \
-  btop brightnessctl bluez bluez-utils docker docker-compose git networkmanager power-profiles-daemon refind wireplumber wl-clipboard
+  btop brightnessctl bluez bluez-utils docker docker-compose git networkmanager power-profiles-daemon refind wireplumber wl-clipboard cpio
 ```
 
 ## Base system setup
@@ -59,6 +59,19 @@ makepkg -si
 ```sh
 git clone https://github.com/Guisanpea/nixfiles ~/.dotfiles
 ~/.dotfiles/apply-arch.sh --no-git
+```
+
+## Install hy3
+```sh
+hyprpm update
+hyprpm add https://github.com/outfoxxed/hy3
+hyprpm enable hy3
+```
+
+## Set nix zsh as default shell
+```
+echo "$(which zsh)" | sudo tee -a /etc/shells
+chsh -s $(which zsh)
 ```
 
 ## Post-installation setup
