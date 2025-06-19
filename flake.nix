@@ -11,7 +11,8 @@
 
   inputs = {
     unstable.url = "nixpkgs/nixos-unstable";
-    stable.url = "nixpkgs/nixos-24.11";
+    stable.url = "nixpkgs/nixos-25.05";
+    php74pkgs.url = "nixpkgs/nixos-22.05";
 
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "stable";
@@ -28,6 +29,7 @@
       home-manager,
       stable,
       unstable,
+      php74pkgs,
       ...
     }:
     let
@@ -38,6 +40,10 @@
       overlays = [
         (final: prev: {
           stable = import stable {
+            inherit (prev) system;
+            config.allowUnfree = true;
+          };
+          php74pkgs = import php74pkgs {
             inherit (prev) system;
             config.allowUnfree = true;
           };
@@ -53,7 +59,7 @@
         };
     in
     {
-      formatter.x86_64-linux = stable.legacyPackages.x86_64-linux.nixpkgs-fmt;
+      formatter.x86_64-linux = unstable.legacyPackages.x86_64-linux.nixpkgs-fmt;
       # Mac config
       darwinConfigurations = {
         ssanchez = darwin.lib.darwinSystem {

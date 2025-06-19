@@ -5,6 +5,7 @@
   imports = [
     ../common/home.nix
     ./packages.nix
+    ../common/programs/php.nix
   ];
 
   home = {
