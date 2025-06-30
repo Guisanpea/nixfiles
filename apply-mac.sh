@@ -26,7 +26,7 @@ build_success=0
 nix build .#darwinConfigurations.ssanchez.system --impure -L -v || build_success=1
 
 if [ $build_success -eq 0 ]; then
-  ./result/sw/bin/darwin-rebuild switch --flake .#ssanchez --impure -L -v
+  sudo ./result/sw/bin/darwin-rebuild switch --flake .#ssanchez --impure -L -v
   if [ $no_git -eq 0 ]; then
     git add .
     git commit -a

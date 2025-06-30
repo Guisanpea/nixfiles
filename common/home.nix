@@ -37,6 +37,8 @@ in
         chmod -R u+w ${config.xdg.configHome}/nvim
       '';
     };
+    # Sync doomemacs flake source to ~/.config/emacs
+    "emacs".source = inputs.doomemacs.outPath;
   };
 
 

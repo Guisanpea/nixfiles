@@ -2,7 +2,14 @@
 
 let
   myphp = pkgs.php74pkgs.php74.buildEnv {
-    extensions = ({ enabled, all }: enabled );
+    extensions = ({ enabled, all }:
+      enabled
+      ++ [
+        all.imagick
+        all.ssh2
+        all.tidy
+      ]
+    );
     extraConfig = ''
       memory_limit = 8G
       max_execution_time = 600
@@ -19,5 +26,5 @@ let
   };
 in
 {
-  home.packages = [ myphp ];
+  home.packages = [ pkgs.php84Packages.composer ];
 }

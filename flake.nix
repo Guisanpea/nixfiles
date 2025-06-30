@@ -21,6 +21,7 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "stable";
     };
+    doomemacs.url = "github:doomemacs/doomemacs";
   };
 
   outputs =
