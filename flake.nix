@@ -15,13 +15,12 @@
     php74pkgs.url = "nixpkgs/nixos-22.05";
 
     darwin.url = "github:lnl7/nix-darwin/master";
-    darwin.inputs.nixpkgs.follows = "stable";
+    darwin.inputs.nixpkgs.follows = "unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "stable";
+      inputs.nixpkgs.follows = "unstable";
     };
-    doomemacs.url = "github:doomemacs/doomemacs";
   };
 
   outputs =

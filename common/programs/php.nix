@@ -26,5 +26,5 @@ let
   };
 in
 {
-  home.packages = [ pkgs.php84Packages.composer ];
+  home.packages = [ ];
 }

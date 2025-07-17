@@ -19,7 +19,7 @@ in
   # Common dotfile configurations
   xdg.configFile = {
     "tmux".source = "${dotfiles}/tmux";
-    "doom".source = "${dotfiles}/doom.d";
+    "doom".source = "${dotfiles}/doom";
     "wezterm".source = "${dotfiles}/wezterm";
     "nvim_init" = {
       source = "${dotfiles}/nvim";
@@ -37,8 +37,6 @@ in
         chmod -R u+w ${config.xdg.configHome}/nvim
       '';
     };
-    # Sync doomemacs flake source to ~/.config/emacs
-    "emacs".source = inputs.doomemacs.outPath;
   };
 
 
