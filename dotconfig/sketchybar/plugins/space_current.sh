@@ -1,12 +1,16 @@
 #!/usr/bin/env zsh
 export PATH="/opt/homebrew/bin:$PATH"
 
-DISPLAY_IDX=$(echo $NAME | grep -o '[0-9]*$')
-if [[ -z "$DISPLAY_IDX" ]]; then
-  DISPLAY_IDX=1
-fi
+CURRENT=$(yabai -m query --spaces --display | jq -r '.[] | select(.["has-focus"]==true) | .index')
+echo $CURRENT > /tmp/sketchybar_space_current.txt
 
-SPACES_JSON=$(yabai -m query --spaces)
-CURRENT=$(echo $SPACES_JSON | jq -r --argjson disp "$DISPLAY_IDX" '.[] | select(.display==$disp and ."has-focus"==true).index')
+ICON_PADDING_LEFT=10
+ICON_PADDING_RIGHT=10
 
-sketchybar --set $NAME icon="$CURRENT"
+sketchybar --set $NAME \
+  label="$CURRENT" \
+  label.drawing=yes \
+  icon.drawing=no \
+  label.padding_left=$ICON_PADDING_LEFT \
+  label.padding_right=$ICON_PADDING_RIGHT \
+  label.color=0xff000000

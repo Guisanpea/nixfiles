@@ -1,18 +1,17 @@
 #!/usr/bin/env zsh
 export PATH="/opt/homebrew/bin:$PATH"
 
-DISPLAY_IDX=$(echo $NAME | grep -o '[0-9]*$')
-if [[ -z "$DISPLAY_IDX" ]]; then
-  DISPLAY_IDX=1
-fi
+SPACES_JSON=$(yabai -m query --spaces --display)
+CURRENT=$(echo $SPACES_JSON | jq -r '.[] | select(.["has-focus"]==true) | .index')
+PREV=$(echo $SPACES_JSON | jq -r --argjson cur "$CURRENT" '.[] | select(.index < $cur).index' | xargs)
+echo $PREV > /tmp/sketchybar_spaces_prev.txt
 
-SPACES_JSON=$(yabai -m query --spaces)
-CURRENT=$(echo $SPACES_JSON | jq -r --argjson disp "$DISPLAY_IDX" '.[] | select(.display==$disp and ."has-focus"==true).index')
-PREV_SPACES=$(echo $SPACES_JSON | jq -r --argjson disp "$DISPLAY_IDX" --argjson cur "$CURRENT" '.[] | select(.display==$disp and .index < $cur).index')
+LABEL_PADDING_LEFT=10
+LABEL_PADDING_RIGHT=10
 
-ICONS=""
-for IDX in $PREV_SPACES; do
-  ICONS+="$IDX "
-done
-
-sketchybar --set $NAME icon="$ICONS"
+sketchybar --set $NAME \
+  label="$PREV" \
+  label.drawing=yes \
+  icon.drawing=no \
+  label.padding_left=$LABEL_PADDING_LEFT \
+  label.padding_right=$LABEL_PADDING_RIGHT

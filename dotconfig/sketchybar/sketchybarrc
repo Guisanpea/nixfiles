@@ -47,29 +47,30 @@ sketchybar --add event spotify_change $SPOTIFY_EVENT \
     script="$PLUGIN_DIR/spotify.sh" \
     --subscribe spotify spotify_change mouse.clicked
 
-sketchybar --add item spaces_prev left \
-    --set spaces_prev \
-    background.color=0x66494d64 \
-    icon.color=0xffcad3f5 \
-    label.drawing=off \
+sketchybar --add event window_change
+
+sketchybar --add item spaces_prev left
+sketchybar --set spaces_prev \
+    label.drawing=on \
+    icon.drawing=off \
     script="$PLUGIN_SHARED_DIR/spaces_prev.sh" \
-    --subscribe spaces_prev space_change
+    --subscribe spaces_prev space_change window_change
 
-sketchybar --add item space_current left \
-    --set space_current \
+sketchybar --add item space_current left
+sketchybar --set space_current \
     background.color=0xfff5a97f \
-    icon.color=0xff24273a \
-    label.drawing=off \
+    icon.color=0xfff5a97f \
+    label.drawing=on \
+    icon.drawing=off \
     script="$PLUGIN_SHARED_DIR/space_current.sh" \
-    --subscribe space_current space_change
+    --subscribe space_current space_change window_change
 
-sketchybar --add item spaces_next left \
-    --set spaces_next \
-    background.color=0x66494d64 \
-    icon.color=0xffcad3f5 \
-    label.drawing=off \
+sketchybar --add item spaces_next left
+sketchybar --set spaces_next \
+    label.drawing=on \
+    icon.drawing=off \
     script="$PLUGIN_SHARED_DIR/spaces_next.sh" \
-    --subscribe spaces_next space_change
+    --subscribe spaces_next space_change window_change
 
 sketchybar --add item front_app left \
     --set front_app \
