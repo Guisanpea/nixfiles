@@ -2,16 +2,10 @@
 export PATH="/opt/homebrew/bin:$PATH"
 
 update_space() {
-    SPACES=$(yabai -m query --spaces --display | jq -c '.[]')
+    SPACES=$(yabai -m query --spaces --display | jq -r '.[].index')
     ICONS=""
-    for SPACE in ${(f)SPACES}; do
-        IDX=$(echo $SPACE | jq -r '.index')
-        FOCUSED=$(echo $SPACE | jq -r '.focused')
-        if [[ $FOCUSED == "true" ]]; then
-            ICONS+="%{F#24273a}$IDX%{F-} "
-        else
-            ICONS+="%{F#00000000}$IDX%{F-} "
-        fi
+    for IDX in $SPACES; do
+        ICONS+="$IDX "
     done
 
     sketchybar --set $NAME icon="$ICONS"
