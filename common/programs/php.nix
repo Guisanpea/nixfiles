@@ -6,6 +6,7 @@ let
       enabled
       ++ [
         all.gmp
+        all.xdebug
         all.imagick
         all.ssh2
         all.tidy
