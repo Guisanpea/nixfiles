@@ -45,12 +45,15 @@
 ;; Enable Org-Roam v2 (Logseq uses a similar structure)
 (setq org-directory "~/Dropbox/org")  ; Match Logseq's root directory
 (setq org-roam-directory (file-truename org-directory))
-(setq org-agenda-files (org-roam-list-files))
-(setq org-capture-templates
-'(("t" "Task" entry (file+headline "inbox.org" "Tasks")
-        "* TODO %?\n  %i\n  %a")
+(setq org-agenda-files (org-roam-list-files))(setq org-capture-templates
+      '(("t" "Task" entry (file+headline "inbox.org" "Tasks")
+         "* TODO %?\n  %i\n  %a")
         ("j" "Journal" entry (file+datetree "journals.org")
-        (file "~/Dropbox/org/pages/templates/journal.org"))))
+         (file "~/Dropbox/org/pages/templates/journal.org"))
+        ;; --- AÑADE ESTA NUEVA LÍNEA ---
+        ("r" "Ritual del Jardinero" entry (file+datetree "revisiones.org")
+         (file "~/Dropbox/org/pages/templates/metasistema_review.org"))
+        ))
 (setq org-agenda-custom-commands
       '(("t" "Actionable TODOs"
          ((todo "TODO")))))
