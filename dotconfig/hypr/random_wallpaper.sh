@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Wait until hyprpaper is running
+sleep 2
 WALLPAPER_DIR="$HOME/Pictures/wallpaper/"
 CURRENT_WALL=$(hyprctl hyprpaper listloaded | grep -oP '(?<=,).+')
 
